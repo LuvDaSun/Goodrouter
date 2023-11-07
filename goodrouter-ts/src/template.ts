@@ -3,7 +3,7 @@
  * the template. Then the name of a placeholder. Then a literal parts of the template again.
  * The first and the last elements are always literal strings taken from the template,
  * therefore the number of elements in the resulting iterable is always uneven!
- * 
+ *
  * @param routeTemplate template to chop up
  * @param parameterPlaceholderRE regular expression to use when searching for parameter placeholders
  * @returns Iterable of strings, always an uneven number of elements.
@@ -40,8 +40,7 @@ export function* parseTemplatePairs(
     for (const part of parts) {
         if (index % 2 === 0) {
             yield [part, parameter] as const;
-        }
-        else {
+        } else {
             parameter = part;
         }
         index++;

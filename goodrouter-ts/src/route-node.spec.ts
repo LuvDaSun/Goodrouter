@@ -15,7 +15,10 @@ test("route-node-permutations", () => {
         "/b/e/{x}/f",
     ];
 
-    const permutedRouteConfigs = permutations(routeConfigs, routeConfigs.length);
+    const permutedRouteConfigs = permutations(
+        routeConfigs,
+        routeConfigs.length,
+    );
 
     let rootNodePrevious: RouteNode<string> | null = null;
 
@@ -23,10 +26,12 @@ test("route-node-permutations", () => {
         const rootNode = new RouteNode<string>();
 
         for (const template of routeConfigs) {
-            const templatePairs = [...parseTemplatePairs(
-                template,
-                defaultRouterOptions.parameterPlaceholderRE,
-            )];
+            const templatePairs = [
+                ...parseTemplatePairs(
+                    template,
+                    defaultRouterOptions.parameterPlaceholderRE,
+                ),
+            ];
             rootNode.insert(template, templatePairs);
         }
 

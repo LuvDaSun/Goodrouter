@@ -46,7 +46,7 @@ test("parse-route 1", () => {
         A,
         B,
         C,
-        D
+        D,
     }
 
     const router = new Router<Route>();
@@ -72,7 +72,6 @@ test("parse-route 1", () => {
         const [routeKey] = router.parseRoute("/b/z/d");
         assert.equal(routeKey, Route.D);
     }
-
 });
 
 test("parse-route 2", () => {
@@ -98,10 +97,7 @@ test("parse-route 2", () => {
     }
 
     {
-        const path = router.stringifyRoute(
-            "two",
-            { x: "1", y: "2" },
-        );
+        const path = router.stringifyRoute("two", { x: "1", y: "2" });
         assert.equal(path, "/a/1/2");
     }
 
@@ -118,10 +114,7 @@ test("parse-route 2", () => {
     }
 
     {
-        const path = router.stringifyRoute(
-            "three",
-            { x: "3/4" },
-        );
+        const path = router.stringifyRoute("three", { x: "3/4" });
         assert.equal(path, "/c/3%2F4");
     }
 
@@ -148,19 +141,20 @@ test("router bug", () => {
 
     assert.deepEqual(
         router.parseRoute("/enterprises/xx/actions/runner-groups"),
-        ["a", { "enterprise": "xx" }],
+        ["a", { enterprise: "xx" }],
     );
 
     assert.deepEqual(
         router.parseRoute("/enterprises/xx/actions/runner-groups/yy"),
-        ["b", { "enterprise": "xx", "runner_group_id": "yy" }],
+        ["b", { enterprise: "xx", runner_group_id: "yy" }],
     );
 
     assert.deepEqual(
-        router.parseRoute("/enterprises/xx/actions/runner-groups/yy/organizations"),
-        ["c", { "enterprise": "xx", "runner_group_id": "yy" }],
+        router.parseRoute(
+            "/enterprises/xx/actions/runner-groups/yy/organizations",
+        ),
+        ["c", { enterprise: "xx", runner_group_id: "yy" }],
     );
-
 });
 
 testTemplates("small");
@@ -183,7 +177,7 @@ function testTemplates(name: string) {
             router.insertRoute(template, template);
         }
 
-        const paths = templates.map(template => {
+        const paths = templates.map((template) => {
             const path = router.stringifyRoute(template, allParameters);
             assert(path != null);
             return path;
@@ -195,14 +189,14 @@ function testTemplates(name: string) {
 
             const [routeKey, routeParameters] = router.parseRoute(path);
             const expectedParameters = Object.fromEntries(
-                Object.keys(routeParameters).
-                    map(name => [name, allParameters[name]]),
+                Object.keys(routeParameters).map((name) => [
+                    name,
+                    allParameters[name],
+                ]),
             );
 
             assert.equal(routeKey, template);
             assert.deepEqual(routeParameters, expectedParameters);
         }
-
     });
-
 }

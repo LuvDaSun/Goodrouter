@@ -6,7 +6,6 @@ import { findCommonPrefixLength } from "./utils/string.js";
  * for the routes
  */
 export class RouteNode<K extends string | number> {
-
     constructor(
         /**
          * @description
@@ -23,9 +22,7 @@ export class RouteNode<K extends string | number> {
          * key that identifies the route, if this is a leaf node for the route
          */
         public routeKey: K | null = null,
-    ) {
-
-    }
+    ) {}
 
     /**
      * @description
@@ -50,9 +47,9 @@ export class RouteNode<K extends string | number> {
         routeKey: K,
         templatePairs: Array<readonly [string, string | null]>,
     ) {
-        const routeParameterNames = templatePairs.
-            map(([, parameterName]) => parameterName).
-            filter(parameterName => parameterName) as string[];
+        const routeParameterNames = templatePairs
+            .map(([, parameterName]) => parameterName)
+            .filter((parameterName) => parameterName) as string[];
 
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         let currentNode: RouteNode<K> = this;
@@ -89,10 +86,15 @@ export class RouteNode<K extends string | number> {
             }
 
             // look for the anchor in the path (note: indexOf is probably the most expensive operation!) If the anchor is empty, match the remainder of the path
-            const index = this.anchor.length === 0 ?
-                path.length :
-                path.substring(0, maximumParameterValueLength + this.anchor.length).
-                    indexOf(this.anchor);
+            const index =
+                this.anchor.length === 0
+                    ? path.length
+                    : path
+                          .substring(
+                              0,
+                              maximumParameterValueLength + this.anchor.length,
+                          )
+                          .indexOf(this.anchor);
             if (index < 0) {
                 return [null, []];
             }
@@ -105,8 +107,7 @@ export class RouteNode<K extends string | number> {
 
             // add value to parameters
             parameterValues.push(value);
-        }
-        else {
+        } else {
             // if this node does not represent a parameter we expect the path to start with the `anchor`
             if (!path.startsWith(this.anchor)) {
                 // this node does not match the path
@@ -128,20 +129,14 @@ export class RouteNode<K extends string | number> {
             if (childRouteKey != null) {
                 return [
                     childRouteKey,
-                    [
-                        ...parameterValues,
-                        ...childParameterValues,
-                    ],
+                    [...parameterValues, ...childParameterValues],
                 ];
             }
         }
 
         // if the node had a route name and there is no path left to match against then we found a route
         if (this.routeKey != null && path.length === 0) {
-            return [
-                this.routeKey,
-                parameterValues,
-            ];
+            return [this.routeKey, parameterValues];
         }
 
         // we did not found a route :-(
@@ -157,22 +152,14 @@ export class RouteNode<K extends string | number> {
         commonPrefixLength: number,
     ) {
         if (childNode == null) {
-            return this.mergeNew(
-                anchor,
-                hasParameter,
-                routeKey,
-            );
+            return this.mergeNew(anchor, hasParameter, routeKey);
         }
 
         const commonPrefix = childNode.anchor.substring(0, commonPrefixLength);
 
         if (childNode.anchor === anchor) {
-            return this.mergeJoin(
-                childNode,
-                routeKey,
-            );
-        }
-        else if (childNode.anchor === commonPrefix) {
+            return this.mergeJoin(childNode, routeKey);
+        } else if (childNode.anchor === commonPrefix) {
             return this.mergeAddToChild(
                 childNode,
                 anchor,
@@ -181,8 +168,7 @@ export class RouteNode<K extends string | number> {
                 routeParameterNames,
                 commonPrefixLength,
             );
-        }
-        else if (anchor === commonPrefix) {
+        } else if (anchor === commonPrefix) {
             return this.mergeAddToNew(
                 childNode,
                 anchor,
@@ -191,8 +177,7 @@ export class RouteNode<K extends string | number> {
                 routeParameterNames,
                 commonPrefixLength,
             );
-        }
-        else {
+        } else {
             return this.mergeIntermediate(
                 childNode,
                 anchor,
@@ -208,23 +193,13 @@ export class RouteNode<K extends string | number> {
         hasParameter: boolean,
         routeKey: K | null,
     ) {
-        const newNode = new RouteNode(
-            anchor,
-            hasParameter,
-            routeKey,
-        );
+        const newNode = new RouteNode(anchor, hasParameter, routeKey);
         this.addChild(newNode);
         this.children.sort((a, b) => a.compare(b));
         return newNode;
     }
-    private mergeJoin(
-        childNode: RouteNode<K>,
-        routeKey: K | null,
-    ) {
-        if (
-            childNode.routeKey != null &&
-            routeKey != null
-        ) {
+    private mergeJoin(childNode: RouteNode<K>, routeKey: K | null) {
+        if (childNode.routeKey != null && routeKey != null) {
             throw new Error("ambiguous route");
         }
 
@@ -278,8 +253,10 @@ export class RouteNode<K extends string | number> {
         anchor = anchor.substring(commonPrefixLength);
         hasParameter = false;
 
-        const [commonPrefixLength2, childNode2] =
-            childNode.findSimilarChild(anchor, hasParameter);
+        const [commonPrefixLength2, childNode2] = childNode.findSimilarChild(
+            anchor,
+            hasParameter,
+        );
 
         return childNode.merge(
             childNode2,
@@ -298,11 +275,7 @@ export class RouteNode<K extends string | number> {
         routeParameterNames: string[],
         commonPrefixLength: number,
     ): RouteNode<K> {
-        const newNode = new RouteNode<K>(
-            anchor,
-            hasParameter,
-            routeKey,
-        );
+        const newNode = new RouteNode<K>(anchor, hasParameter, routeKey);
         this.addChild(newNode);
 
         this.removeChild(childNode);
@@ -318,16 +291,16 @@ export class RouteNode<K extends string | number> {
         return newNode;
     }
 
-    private findSimilarChild(
-        anchor: string,
-        hasParameter: boolean,
-    ) {
+    private findSimilarChild(anchor: string, hasParameter: boolean) {
         for (const childNode of this.children) {
             if (childNode.hasParameter !== hasParameter) {
                 continue;
             }
 
-            const commonPrefixLength = findCommonPrefixLength(anchor, childNode.anchor);
+            const commonPrefixLength = findCommonPrefixLength(
+                anchor,
+                childNode.anchor,
+            );
             if (commonPrefixLength === 0) {
                 continue;
             }
@@ -350,6 +323,4 @@ export class RouteNode<K extends string | number> {
 
         return 0;
     }
-
 }
-
