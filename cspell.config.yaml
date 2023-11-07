@@ -3,6 +3,10 @@ ignorePaths: []
 dictionaryDefinitions: []
 dictionaries: []
 words:
+  - cobertura
   - goodrouter
+  - itertools
+  - lcov
+  - microtime
 ignoreWords: []
 import: []
