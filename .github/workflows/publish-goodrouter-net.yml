@@ -1,14 +1,13 @@
 on:
   push:
     tags:
-      - goodrouter-net@v*
+      - goodrouter-net@*.*.*
 
 defaults:
   run:
     working-directory: goodrouter-net
 
 jobs:
-
   publish-nuget:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:6.0
@@ -23,15 +22,14 @@ jobs:
       - uses: actions/checkout@v3
         with:
           lfs: true
-      # see https://learn.microsoft.com/en-us/dotnet/standard/library-guidance/versioning 
+      # see https://learn.microsoft.com/en-us/dotnet/standard/library-guidance/versioning
       - run: >
           dotnet pack Goodrouter
           --configuration Release
-          --property Version=$(echo ${GITHUB_REF_NAME:16}
-          --property AssemblyVersion=$(echo ${GITHUB_REF_NAME:16} | perl -pe "s/${SEMVER_REGEX}/\1.0.0.0/")
-          --property FileVersion=$(echo ${GITHUB_REF_NAME:16} | perl -pe "s/${SEMVER_REGEX}/\1.\2.\3.${GITHUB_RUN_ID}/")
+          --property Version=$(echo ${GITHUB_REF_NAME:15}
+          --property AssemblyVersion=$(echo ${GITHUB_REF_NAME:15} | perl -pe "s/${SEMVER_REGEX}/\1.0.0.0/")
+          --property FileVersion=$(echo ${GITHUB_REF_NAME:15} | perl -pe "s/${SEMVER_REGEX}/\1.\2.\3.${GITHUB_RUN_ID}/")
       - run: >
           dotnet nuget push
           --api-key $NUGET_API_KEY
           --source https://api.nuget.org/v3/index.json 'Goodrouter/bin/Release/*.nupkg'
-

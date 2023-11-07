@@ -1,14 +1,13 @@
 on:
   push:
-    tags:        
-      - goodrouter-rs@v*
+    tags:
+      - goodrouter-rs@*.*.*
 
 defaults:
   run:
     working-directory: goodrouter-rs
 
 jobs:
-
   publish-crates:
     runs-on: ubuntu-latest
     container: rust:1.64-alpine3.15
@@ -18,5 +17,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: apk add cargo-edit
-      - run: cargo set-version ${GITHUB_REF_NAME:15}
+      - run: cargo set-version ${GITHUB_REF_NAME:14}
       - run: cargo publish --allow-dirty
