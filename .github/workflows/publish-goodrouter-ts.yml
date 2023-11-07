@@ -33,5 +33,5 @@ jobs:
       - run: >
           npx wrangler pages publish ./docs
           --commit-dirty=true
-          --project-name $(basename $GITHUB_REPOSITORY)
+          --project-name $(basename $PWD)
           --branch main
