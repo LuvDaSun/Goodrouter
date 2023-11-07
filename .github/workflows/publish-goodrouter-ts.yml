@@ -9,10 +9,11 @@ jobs:
     container: node:20.9-alpine3.17
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      PACKAGE: goodrouter-ts
     steps:
       - uses: actions/checkout@v3
       - run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> ~/.npmrc
-      - run: npm --workspace ${GITHUB_REF_NAME::13} ci
-      - run: npm --workspace ${GITHUB_REF_NAME::13} run build
-      - run: npm --workspace ${GITHUB_REF_NAME::13} version ${GITHUB_REF_NAME:14}
-      - run: npm --workspace ${GITHUB_REF_NAME::13} publish
+      - run: npm --workspace $PACKAGE ci
+      - run: npm --workspace $PACKAGE run build
+      - run: npm --workspace $PACKAGE version ${GITHUB_REF_NAME:14}
+      - run: npm --workspace $PACKAGE publish

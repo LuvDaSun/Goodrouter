@@ -10,15 +10,16 @@ jobs:
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID}}
+      PACKAGE: goodrouter-www
     steps:
       - run: apk add git-lfs
       - uses: actions/checkout@v3
         with:
           lfs: true
-      - run: npm --workspace ${GITHUB_REF_NAME::14} ci
-      - run: npm --workspace ${GITHUB_REF_NAME::14} run build
+      - run: npm --workspace $PACKAGE ci
+      - run: npm --workspace $PACKAGE run build
       - run: >
-          npx wrangler pages deploy ${GITHUB_REF_NAME::14}/out
+          npx wrangler pages deploy $PACKAGE/out
           --commit-dirty=true
-          --project-name ${GITHUB_REF_NAME::14}
+          --project-name $PACKAGE
           --branch main
