@@ -11,8 +11,7 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID}}
     steps:
-      - run: apt update
-      - run: apt install git-lfs
+      - run: apt add git-lfs
       - uses: actions/checkout@v3
         with:
           lfs: true
