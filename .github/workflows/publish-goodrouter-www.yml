@@ -20,5 +20,5 @@ jobs:
       - run: >
           npx wrangler pages publish ${GITHUB_REF_NAME::14}/out
           --commit-dirty=true
-          --project-name $(basename $GITHUB_REPOSITORY)
+          --project-name ${GITHUB_REF_NAME::14}
           --branch main
