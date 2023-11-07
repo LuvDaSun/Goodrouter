@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "goodrouter-ts"
+		},
+		{
+			"path": "goodrouter-www"
+		},
+		{
+			"path": "goodrouter-net"
+		},
+		{
+			"path": "goodrouter-rs"
+		}
+	],
+	"settings": {
+		"rust-analyzer.check.command": "clippy"
+	}
+}
