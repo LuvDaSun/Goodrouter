@@ -161,7 +161,7 @@ mod tests {
 
     #[test]
     fn route_node_permutations() {
-        let route_configs = vec!["/a", "/b/{x}", "/b/{x}/", "/b/{x}/c", "/b/{y}/d"];
+        let route_configs = ["/a", "/b/{x}", "/b/{x}/", "/b/{x}/c", "/b/{y}/d"];
 
         let mut node_root_previous_rc = None;
 

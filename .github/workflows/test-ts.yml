@@ -9,8 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm ci
-      - run: npm run build --workspaces
-      - run: npm test --workspaces
+      - run: npm run build
+      - run: npm test
 
   test-lint:
     runs-on: ubuntu-latest
@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm ci
-      - run: npm run lint --workspaces
+      - run: npm run lint
 
   test-audit:
     runs-on: ubuntu-latest
