@@ -12,6 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> ~/.npmrc
-      - run: npm ci
+      - run: npm ci --workspace ${GITHUB_REF_NAME::13}
       - run: npm version --workspace ${GITHUB_REF_NAME::13} ${GITHUB_REF_NAME:14}
       - run: npm publish --workspace ${GITHUB_REF_NAME::13}
