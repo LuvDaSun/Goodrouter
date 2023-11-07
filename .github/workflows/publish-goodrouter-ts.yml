@@ -1,14 +1,13 @@
 on:
   push:
     tags:
-      - goodrouter-ts@v*
+      - goodrouter-ts@*.*.*
 
 defaults:
   run:
     working-directory: goodrouter-ts
 
 jobs:
-
   publish-npm:
     runs-on: ubuntu-latest
     container: node:18
@@ -18,7 +17,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
       - run: npm ci
-      - run: npm version ${GITHUB_REF_NAME:15}
+      - run: npm version ${GITHUB_REF_NAME:14}
       - run: npm publish
 
   publish-cloudflare:
