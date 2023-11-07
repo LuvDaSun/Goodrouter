@@ -12,14 +12,12 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID}}
       PACKAGE: goodrouter-www
     steps:
-      - run: apk add git-lfs
+      - run: apk add git-lfs aws-cli
       - uses: actions/checkout@v3
         with:
           lfs: true
       - run: npm --workspace $PACKAGE ci
       - run: npm --workspace $PACKAGE run build
       - run: >
-          npx wrangler pages deploy $PACKAGE/out
-          --commit-dirty=true
-          --project-name $PACKAGE
-          --branch main
+          aws s3 sync $PACKAGE/out http://www.goodrouter.org.s3-website.eu-central-1.amazonaws.com
+          --delete
