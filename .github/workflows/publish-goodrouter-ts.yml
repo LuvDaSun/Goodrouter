@@ -10,20 +10,18 @@ defaults:
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
-    container: node:18
+    container: node:20.9-alpine3.17
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v3
-      - run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
       - run: npm ci
-      - run: echo releasing version ${GITHUB_REF_NAME:14} to npm
       - run: npm version ${GITHUB_REF_NAME:14}
       - run: npm publish
 
   publish-cloudflare:
     runs-on: ubuntu-latest
-    container: node:18
+    container: node:20.9-alpine3.17
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID}}
