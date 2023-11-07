@@ -1,0 +1,18 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in library 'goodrouter'",
+      "cargo": {
+        "args": ["test", "--no-run", "--lib", "--package=goodrouter"],
+        "filter": {
+          "name": "goodrouter",
+          "kind": "lib"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

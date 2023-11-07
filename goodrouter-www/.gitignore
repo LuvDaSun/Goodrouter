@@ -1,0 +1,14 @@
+.*
+*.log
+
+!.gitignore
+!.gitattributes
+!.editorconfig
+!.npmrc
+!.eleventy.js
+
+/node_modules/
+/out/
+
+!/.vscode/
+!/.github/

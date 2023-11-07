@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "spec",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-spec",
+      "program": "${workspaceFolder}/bin/Spec/net6.0/goodrouter.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "bench",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-bench",
+      "program": "${workspaceFolder}/bin/Bench/net6.0/goodrouter.dll",
+      "args": ["--filter", "*"],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    }
+  ]
+}

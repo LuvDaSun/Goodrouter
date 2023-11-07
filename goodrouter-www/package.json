@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "prepare": "npm run compile",
+    "compile": "eleventy",
+    "clean": "rm -rf out"
+  },
+  "author": "LuvDaSun Software B.V.",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.0",
+    "github-markdown-css": "^5.1.0",
+    "wrangler": "^2.12.2"
+  }
+}

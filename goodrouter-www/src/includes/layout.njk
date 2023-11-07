@@ -1,0 +1,26 @@
+---
+title: Goodrouter
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="./global.css"/>
+    <link rel="stylesheet" href="./github-markdown.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <main class="markdown-body">
+        <img src="./goodrouter-logo-2.png"/> {{ content | safe }}
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+.*
+
+node_modules/
+target/
+coverage/
+
+!.gitignore
+!.gitattributes
+!.editorconfig
+!.npmrc
+
+!.vscode/
+!.github/

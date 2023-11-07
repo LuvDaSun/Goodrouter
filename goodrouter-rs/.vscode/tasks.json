@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "cargo test",
+      "type": "shell",
+      "command": "cargo",
+      "args": ["test"],
+      "options": {
+        "env": {
+          "RUSTFLAGS": "-C instrument-coverage",
+          "LLVM_PROFILE_FILE": "coverage/coverage.profraw"
+        }
+      },
+      "problemMatcher": ["$rustc"],
+      "group": "test"
+    },
+    {
+      "label": "grcov",
+      "type": "shell",
+      "command": "grcov",
+      "args": [
+        "coverage/coverage.profraw",
+        "--binary-path",
+        "target/debug",
+        "--output-path",
+        "coverage/lcov.info"
+      ],
+      "dependsOn": ["cargo test"],
+      "problemMatcher": [],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    }
+  ]
+}

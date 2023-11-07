@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "eseom.nunjucks-template",
+    "streetsidesoftware.code-spell-checker",
+    "firefox-devtools.vscode-firefox-debug",
+    "msjsdiag.debugger-for-chrome"
+  ]
+}
