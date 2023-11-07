@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:LuvDaSun/goodrouter.git"
+    "url": "git+ssh://git@github.com/LuvDaSun/goodrouter.git"
   },
   "author": "LuvDaSun Software B.V.",
   "license": "ISC",
