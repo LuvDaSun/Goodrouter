@@ -35,17 +35,18 @@
   ],
   "homepage": "https://ts.goodrouter.org",
   "devDependencies": {
-    "@types/benchmark": "^2.1.2",
+    "@tsconfig/node20": "^20.1.2",
+    "@types/benchmark": "^2.1.5",
     "benchmark": "^2.1.4",
-    "c8": "^7.13.0",
-    "itertools": "^2.1.1",
+    "c8": "^8.0.1",
+    "itertools": "^2.1.2",
     "microtime": "^3.1.1",
     "prettier": "^3.0.3",
-    "typedoc": "^0.24.7",
-    "typescript": "^5.0.4"
+    "typedoc": "^0.25.3",
+    "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@types/node": "^20.2.3",
-    "tslib": "^2.5.2"
+    "@types/node": "^20.8.10",
+    "tslib": "^2.6.2"
   }
 }

@@ -1,7 +1,6 @@
 {
-  "extends":"../tsconfig.json",
+  "extends":"@tsconfig/node20",
   "compilerOptions": {
-    "composite": true,
     "outDir": "./out",
     "rootDir": "./src",
   },
