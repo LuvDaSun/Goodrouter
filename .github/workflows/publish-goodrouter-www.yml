@@ -17,7 +17,7 @@ jobs:
           lfs: true
       - run: npm ci --workspace ${GITHUB_REF_NAME::14}
       - run: >
-          npx wrangler pages publish ${GITHUB_REF_NAME::14}/out
+          npx wrangler pages deploy ${GITHUB_REF_NAME::14}/out
           --commit-dirty=true
           --project-name ${GITHUB_REF_NAME::14}
           --branch main
