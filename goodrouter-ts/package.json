@@ -15,8 +15,7 @@
     "test": "npm run spec-all",
     "lint": "prettier --check *",
     "spec-all": "node --test ./out/*.spec.js ./out/*/*.spec.js",
-    "coverage": "c8 --reporter lcov --reporter cobertura npm test",
-    "docs": "typedoc"
+    "coverage": "c8 --reporter lcov --reporter cobertura npm test"
   },
   "repository": {
     "type": "git",
@@ -42,7 +41,6 @@
     "itertools": "^2.1.2",
     "microtime": "^3.1.1",
     "prettier": "^3.0.3",
-    "typedoc": "^0.25.3",
     "typescript": "^5.2.2",
     "wrangler": "^3.15.0"
   },

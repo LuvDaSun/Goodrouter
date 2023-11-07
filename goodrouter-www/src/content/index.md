@@ -15,7 +15,6 @@ Join our [Discord server](https://discord.gg/BJ8v7xTq8d)!
 
 - [Source code](https://github.com/goodrouter)
 - TypeScript edition
-  - [TypeDoc](https://ts.goodrouter.org)
   - [NPM](https://www.npmjs.com/package/goodrouter)
 - Rust edition
   - [crates.io](https://crates.io/crates/goodrouter)
