@@ -13,7 +13,7 @@ Join our [Discord server](https://discord.gg/BJ8v7xTq8d)!
 
 ## Links
 
-- [Source code](https://github.com/goodrouter)
+- [Source code](https://github.com/LuvDaSun/goodrouter)
 - TypeScript edition
   - [NPM](https://www.npmjs.com/package/goodrouter)
 - Rust edition
