@@ -14,6 +14,7 @@
 		}
 	],
 	"settings": {
-		"rust-analyzer.check.command": "clippy"
+		"rust-analyzer.check.command": "clippy",
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
 	}
 }
