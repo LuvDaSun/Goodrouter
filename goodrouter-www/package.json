@@ -10,6 +10,6 @@
     "@11ty/eleventy": "^2.0.1",
     "github-markdown-css": "^5.4.0",
     "prettier": "^3.0.3",
-    "wrangler": "^2.20.1"
+    "wrangler": "^3.15.0"
   }
 }
