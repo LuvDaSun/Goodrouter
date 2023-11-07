@@ -3,7 +3,7 @@ import * as path from "path";
 import { projectRoot } from "../utils/root.js";
 
 export function loadTemplates(name: string) {
-    const filePath = path.join(projectRoot, "fixtures", name + ".txt");
+    const filePath = path.join(projectRoot, "..", "fixtures", name + ".txt");
     // eslint-disable-next-line security/detect-non-literal-fs-filename
     const fileContent = fs.readFileSync(filePath, "utf8");
 
