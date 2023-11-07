@@ -14,10 +14,10 @@ jobs:
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
-      - run: releasing version ${GITHUB_REF_NAME:14} to npm
       - uses: actions/checkout@v3
       - run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
       - run: npm ci
+      - run: echo releasing version ${GITHUB_REF_NAME:14} to npm
       - run: npm version ${GITHUB_REF_NAME:14}
       - run: npm publish
 
