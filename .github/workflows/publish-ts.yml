@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-      - ts@v*
+      - goodrouter-ts@v*
 
 defaults:
   run:
@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
       - run: npm ci
-      - run: npm version $GITHUB_REF_NAME
+      - run: npm version ${GITHUB_REF_NAME:15}
       - run: npm publish
 
   publish-cloudflare:

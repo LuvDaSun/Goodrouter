@@ -9,6 +9,8 @@ words:
   - itertools
   - lcov
   - microtime
+  - npmjs
+  - nupkg
   - rustup
 ignoreWords: []
 import: []
