@@ -20,7 +20,7 @@ jobs:
           lfs: true
       # see https://learn.microsoft.com/en-us/dotnet/standard/library-guidance/versioning
       - run: >
-          dotnet pack Goodrouter
+          dotnet pack goodrouter-net/Goodrouter
           --configuration Release
           --property Version=$(echo ${GITHUB_REF_NAME} | perl -pe "s/@(.*)$/\1/")
           --property AssemblyVersion=$(echo ${GITHUB_REF_NAME} | perl -pe "s/@(.*)$/\1/" | perl -pe "s/${SEMVER_REGEX}/\1.0.0.0/")
@@ -28,4 +28,4 @@ jobs:
       - run: >
           dotnet nuget push
           --api-key $NUGET_API_KEY
-          --source https://api.nuget.org/v3/index.json '${GITHUB_REF_NAME:14}/Goodrouter/bin/Release/*.nupkg'
+          --source https://api.nuget.org/v3/index.json 'goodrouter-net/Goodrouter/bin/Release/*.nupkg'
