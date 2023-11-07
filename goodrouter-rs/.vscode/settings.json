@@ -5,6 +5,5 @@
     "source.organizeImports": true
   },
   "editor.rulers": [100],
-  "rust-analyzer.check.command": "clippy",
-  "cSpell.words": ["goodrouter", "itertools", "urlencoding"]
+  "rust-analyzer.check.command": "clippy"
 }
