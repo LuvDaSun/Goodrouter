@@ -2,10 +2,6 @@ on:
   - push
   - pull_request
 
-defaults:
-  run:
-    working-directory: goodrouter-net
-
 jobs:
 
   test-spec:

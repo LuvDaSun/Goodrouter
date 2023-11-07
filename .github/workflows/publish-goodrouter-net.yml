@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-      - net@v*
+      - goodrouter-net@v*
 
 defaults:
   run:
@@ -27,9 +27,9 @@ jobs:
       - run: >
           dotnet pack Goodrouter
           --configuration Release
-          --property Version=$(echo ${GITHUB_REF_NAME} | perl -pe "s/^v(.*)$/\1/")
-          --property AssemblyVersion=$(echo ${GITHUB_REF_NAME} | perl -pe "s/^v(.*)$/\1/" | perl -pe "s/${SEMVER_REGEX}/\1.0.0.0/")
-          --property FileVersion=$(echo ${GITHUB_REF_NAME} | perl -pe "s/^v(.*)$/\1/" | perl -pe "s/${SEMVER_REGEX}/\1.\2.\3.${GITHUB_RUN_ID}/")
+          --property Version=$(echo ${GITHUB_REF_NAME:16}
+          --property AssemblyVersion=$(echo ${GITHUB_REF_NAME:16} | perl -pe "s/${SEMVER_REGEX}/\1.0.0.0/")
+          --property FileVersion=$(echo ${GITHUB_REF_NAME:16} | perl -pe "s/${SEMVER_REGEX}/\1.\2.\3.${GITHUB_RUN_ID}/")
       - run: >
           dotnet nuget push
           --api-key $NUGET_API_KEY

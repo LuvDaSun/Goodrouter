@@ -3,6 +3,15 @@ ignorePaths: []
 dictionaryDefinitions: []
 dictionaries: []
 words:
+  - clippy
+  - cobertura
+  - esbenp
   - goodrouter
+  - itertools
+  - lcov
+  - microtime
+  - npmjs
+  - nupkg
+  - rustup
 ignoreWords: []
 import: []

@@ -10,23 +10,22 @@
     "src/*"
   ],
   "scripts": {
-    "prepare": "npm run compile",
-    "compile": "tsc",
+    "build": "tsc",
     "clean": "rm -rf out",
     "test": "npm run spec-all",
-    "lint": "eslint \"src/**/*.ts\"",
+    "lint": "prettier --check *",
     "spec-all": "node --test ./out/*.spec.js ./out/*/*.spec.js",
     "coverage": "c8 --reporter lcov --reporter cobertura npm test",
     "docs": "typedoc"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:goodrouter/goodrouter-ts.git"
+    "url": "git@github.com:LuvDaSun/goodrouter.git"
   },
   "author": "LuvDaSun Software B.V.",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/goodrouter/goodrouter-ts/issues"
+    "url": "https://github.com/LuvDaSun/goodrouter/issues"
   },
   "keywords": [
     "good",
@@ -36,20 +35,18 @@
   ],
   "homepage": "https://ts.goodrouter.org",
   "devDependencies": {
-    "@types/benchmark": "^2.1.2",
-    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@tsconfig/node20": "^20.1.2",
+    "@types/benchmark": "^2.1.5",
     "benchmark": "^2.1.4",
-    "c8": "^7.13.0",
-    "eslint": "^8.41.0",
-    "eslint-plugin-deprecation": "^1.4.1",
-    "eslint-plugin-security": "^1.7.1",
-    "itertools": "^2.1.1",
+    "c8": "^8.0.1",
+    "itertools": "^2.1.2",
     "microtime": "^3.1.1",
-    "typedoc": "^0.24.7",
-    "typescript": "^5.0.4"
+    "prettier": "^3.0.3",
+    "typedoc": "^0.25.3",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@types/node": "^20.2.3",
-    "tslib": "^2.5.2"
+    "@types/node": "^20.8.10",
+    "tslib": "^2.6.2"
   }
 }

@@ -12,7 +12,7 @@
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <Version>0.0.0</Version>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <PackageLicenseExpression>ISC</PackageLicenseExpression>
         <Authors>LuvDaSun B.V.</Authors>
         <PackageIcon>goodrouter-logo-2.png</PackageIcon>
         <Description>A good, low level, bidirectional router</Description>
@@ -24,7 +24,6 @@
 
     <ItemGroup>
         <None Include="../README.md" Pack="true" PackagePath="/" />
-        <None Include="../LICENSE.md" Pack="true" PackagePath="/" />
         <None Include="../../assets/goodrouter-logo-2.png" Pack="true" PackagePath="/" />
 
         <InternalsVisibleTo

@@ -5,5 +5,5 @@
     "source.organizeImports": true
   },
   "editor.rulers": [100],
-  "cSpell.words": ["goodrouter", "Xunit"]
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

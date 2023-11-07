@@ -7,9 +7,7 @@ runBenchmark("small");
 runBenchmark("docker");
 runBenchmark("github");
 
-function runBenchmark(
-    name: string,
-) {
+function runBenchmark(name: string) {
     const templates = loadTemplates(name);
     const parameterNames = [...parametersFromTemplates(templates)];
     const parameters = Object.fromEntries(
@@ -38,4 +36,3 @@ function runBenchmark(
 
     console.log(String(benchmark));
 }
-

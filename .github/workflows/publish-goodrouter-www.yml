@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-      - www@v*
+      - goodrouter-www@v*
 
 defaults:
   run:

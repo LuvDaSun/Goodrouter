@@ -8,9 +8,7 @@ runBenchmark("small");
 runBenchmark("docker");
 runBenchmark("github");
 
-function runBenchmark(
-    name: string,
-) {
+function runBenchmark(name: string) {
     const templates = loadTemplates(name);
     const parameterNames = [...parametersFromTemplates(templates)];
     const parameters = Object.fromEntries(
@@ -24,7 +22,7 @@ function runBenchmark(
         router.insertRoute(template, template);
     }
 
-    const paths = templates.map(template => {
+    const paths = templates.map((template) => {
         const path = router.stringifyRoute(template, parameters);
         assert(path != null);
         return path;
@@ -45,4 +43,3 @@ function runBenchmark(
 
     console.log(String(benchmark));
 }
-

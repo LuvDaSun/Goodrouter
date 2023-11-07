@@ -1,7 +1,7 @@
 on:
   push:
     tags:        
-      - rs@v*
+      - goodrouter-rs@v*
 
 defaults:
   run:
@@ -18,5 +18,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: apk add cargo-edit
-      - run: cargo set-version ${GITHUB_REF_NAME:1}
+      - run: cargo set-version ${GITHUB_REF_NAME:15}
       - run: cargo publish --allow-dirty

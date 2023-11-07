@@ -5,5 +5,5 @@
     "source.organizeImports": true
   },
   "editor.rulers": [100],
-  "cSpell.words": ["cobertura", "goodrouter", "itertools", "lcov", "luvdasun"]
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
