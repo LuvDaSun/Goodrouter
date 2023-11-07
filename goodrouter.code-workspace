@@ -12,5 +12,8 @@
         {
             "path": "goodrouter-rs"
         }
-    ]
+    ],
+    "settings": {
+        "rust-analyzer.check.command": "clippy"
+    }
 }
