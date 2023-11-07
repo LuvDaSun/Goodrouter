@@ -22,7 +22,7 @@ jobs:
       - run: >
           dotnet pack Goodrouter
           --configuration Release
-          --property Version=$(echo ${GITHUB_REF_NAME:15}
+          --property Version=${GITHUB_REF_NAME:15}
           --property AssemblyVersion=$(echo ${GITHUB_REF_NAME:15} | perl -pe "s/${SEMVER_REGEX}/\1.0.0.0/")
           --property FileVersion=$(echo ${GITHUB_REF_NAME:15} | perl -pe "s/${SEMVER_REGEX}/\1.\2.\3.${GITHUB_RUN_ID}/")
       - run: >
