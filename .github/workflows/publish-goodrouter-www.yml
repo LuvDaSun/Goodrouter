@@ -8,8 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     container: node:20.9-alpine3.17
     env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID}}
+      AWS_SECRET_KEY_ID: ${{ secrets.AWS_SECRET_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ vars.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ vars.AWS_DEFAULT_REGION }}
       PACKAGE: goodrouter-www
     steps:
       - run: apk add git-lfs aws-cli
