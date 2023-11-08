@@ -7,10 +7,11 @@
       "name": "run file",
       "program": "${file}",
       "args": [],
-      "cwd": "${workspaceRoot}",
+      "cwd": "${workspaceFolder}",
       "sourceMaps": true,
-      "outFiles": ["${workspaceRoot}/out/**/*.js"],
-      "preLaunchTask": "watch"
+      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "preLaunchTask": "watch",
+      "outputCapture": "std"
     }
   ]
 }
