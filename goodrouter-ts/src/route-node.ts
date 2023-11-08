@@ -1,4 +1,4 @@
-import { RouteNodeJson } from "./route-node-json.js";
+import { RouteNodeJson } from "./json.js";
 import { findCommonPrefixLength } from "./utils/string.js";
 
 /**

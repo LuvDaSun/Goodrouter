@@ -1,7 +1,6 @@
 import { permutations } from "itertools";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { RouteNodeJson } from "./route-node-json.js";
 import { RouteNode } from "./route-node.js";
 import { defaultRouterOptions } from "./router-options.js";
 import { parseTemplatePairs } from "./template.js";
@@ -60,48 +59,4 @@ test("route-node-sort", () => {
     const nodesActual = [...nodes].sort((a, b) => a.compare(b));
 
     assert.deepEqual(nodesActual, nodesExpected);
-});
-
-test("route-node-json", () => {
-    const node = new RouteNode();
-    node.insert(1, [
-        ...parseTemplatePairs(
-            "x/y",
-            defaultRouterOptions.parameterPlaceholderRE,
-        ),
-    ]);
-    node.insert(2, [
-        ...parseTemplatePairs(
-            "x/z",
-            defaultRouterOptions.parameterPlaceholderRE,
-        ),
-    ]);
-    const actual = node.toJSON();
-    const expected: RouteNodeJson<number> = {
-        anchor: "",
-        hasParameter: false,
-        routeKey: null,
-        children: [
-            {
-                anchor: "x/",
-                hasParameter: false,
-                routeKey: null,
-                children: [
-                    {
-                        anchor: "y",
-                        hasParameter: false,
-                        routeKey: 1,
-                        children: [],
-                    },
-                    {
-                        anchor: "z",
-                        hasParameter: false,
-                        routeKey: 2,
-                        children: [],
-                    },
-                ],
-            },
-        ],
-    };
-    assert.deepEqual(actual, expected);
 });
