@@ -6,28 +6,31 @@ on:
       - fixtures/**
       - goodrouter-ts/**
 
+env:
+  PACKAGE: goodrouter-ts
+
 jobs:
   test-unit:
     runs-on: ubuntu-latest
     container: node:20.9-alpine3.17
     steps:
       - uses: actions/checkout@v3
-      - run: npm ci
-      - run: npm run build
-      - run: npm test
+      - run: npm --workspace $PACKAGE ci
+      - run: npm --workspace $PACKAGE run build
+      - run: npm --workspace $PACKAGE test
 
   test-lint:
     runs-on: ubuntu-latest
     container: node:20.9-alpine3.17
     steps:
       - uses: actions/checkout@v3
-      - run: npm ci
-      - run: npm run lint
+      - run: npm --workspace $PACKAGE ci
+      - run: npm --workspace $PACKAGE run lint
 
   test-audit:
     runs-on: ubuntu-latest
     container: node:20.9-alpine3.17
     steps:
       - uses: actions/checkout@v3
-      - run: npm ci
-      - run: npm audit --audit-level high
+      - run: npm --workspace $PACKAGE ci
+      - run: npm --workspace $PACKAGE audit --audit-level high

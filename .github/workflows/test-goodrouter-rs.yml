@@ -6,6 +6,9 @@ on:
       - fixtures/**
       - goodrouter-rs/**
 
+env:
+  PACKAGE: goodrouter-rs
+
 jobs:
   test-unit:
     runs-on: ubuntu-latest
