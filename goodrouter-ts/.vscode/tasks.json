@@ -2,10 +2,10 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "typescript",
+      "type": "npm",
       "label": "watch",
-      "tsconfig": "tsconfig.json",
-      "option": "watch",
+      "script": "watch",
+      "isBackground": true,
       "problemMatcher": ["$tsc-watch"],
       "group": {
         "kind": "build",

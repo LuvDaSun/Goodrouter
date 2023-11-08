@@ -1,3 +1,4 @@
+import { RouteNodeJson } from "./route-node-json.js";
 import { RouteNode } from "./route-node.js";
 import { defaultRouterOptions, RouterOptions } from "./router-options.js";
 import { parseTemplatePairs } from "./template.js";
@@ -153,5 +154,16 @@ export class Router<K extends string | number> {
             result += parameterAnchor;
         }
         return result;
+    }
+
+    public saveToJSON(): RouteNodeJson<K> {
+        const json = this.rootNode.toJSON();
+        return json;
+    }
+
+    public loadFromJSON(json: RouteNodeJson<K>) {
+        const node = RouteNode.fromJSON(json);
+        this.rootNode = node;
+        return this;
     }
 }

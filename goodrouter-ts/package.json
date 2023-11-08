@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "watch": "tsc --watch",
     "clean": "rm -rf out",
     "test": "npm run spec-all",
     "lint": "prettier --check *",
