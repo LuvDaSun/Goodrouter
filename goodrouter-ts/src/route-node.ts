@@ -1,3 +1,4 @@
+import { RouteNodeJson } from "./route-node-json.js";
 import { findCommonPrefixLength } from "./utils/string.js";
 
 /**
@@ -22,13 +23,12 @@ export class RouteNode<K extends string | number> {
          * key that identifies the route, if this is a leaf node for the route
          */
         public routeKey: K | null = null,
+        /**
+         * @description
+         * children that represent the rest of the path that needs to be matched
+         */
+        private readonly children = new Array<RouteNode<K>>(),
     ) {}
-
-    /**
-     * @description
-     * children that represent the rest of the path that needs to be matched
-     */
-    private readonly children = new Array<RouteNode<K>>();
 
     private addChild(childNode: RouteNode<K>) {
         this.children.push(childNode);
@@ -322,5 +322,27 @@ export class RouteNode<K extends string | number> {
         if (this.anchor > other.anchor) return 1;
 
         return 0;
+    }
+
+    public toJSON(): RouteNodeJson<K> {
+        const json = {
+            anchor: this.anchor,
+            hasParameter: this.hasParameter,
+            routeKey: this.routeKey,
+            children: this.children.map((child) => child.toJSON()),
+        };
+        return json;
+    }
+
+    public static fromJSON<K extends string | number>(
+        json: RouteNodeJson<K>,
+    ): RouteNode<K> {
+        const node = new RouteNode(
+            json.anchor,
+            json.hasParameter,
+            json.routeKey,
+            json.children.map((child) => RouteNode.fromJSON(child)),
+        );
+        return node;
     }
 }
