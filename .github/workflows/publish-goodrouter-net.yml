@@ -3,6 +3,9 @@ on:
     tags:
       - goodrouter-net@*.*.*
 
+env:
+  PACKAGE: goodrouter-net
+
 jobs:
   publish-nuget:
     runs-on: ubuntu-latest
@@ -12,7 +15,6 @@ jobs:
       # from https://semver.org/
       SEMVER_REGEX: >
         ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
-      PACKAGE: goodrouter-net
     steps:
       - run: apt update
       - run: apt install git-lfs

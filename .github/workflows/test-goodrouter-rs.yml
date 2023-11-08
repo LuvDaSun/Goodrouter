@@ -6,6 +6,9 @@ on:
       - fixtures/**
       - goodrouter-rs/**
 
+env:
+  PACKAGE: goodrouter
+
 jobs:
   test-unit:
     runs-on: ubuntu-latest
@@ -22,7 +25,7 @@ jobs:
             .cargo/
             target/
       - run: apk add build-base
-      - run: cargo test --all-targets
+      - run: cargo --package $PACKAGE test --all-targets
 
   test-lint:
     runs-on: ubuntu-latest
@@ -40,4 +43,4 @@ jobs:
             target/
       - run: apk add musl-dev
       - run: rustup component add clippy
-      - run: cargo clippy --all-targets
+      - run: cargo --package $PACKAGE clippy --all-targets

@@ -6,6 +6,9 @@ on:
       - fixtures/**
       - goodrouter-net/**
 
+env:
+  PACKAGE: goodrouter-net
+
 jobs:
   test-spec:
     runs-on: ubuntu-latest
