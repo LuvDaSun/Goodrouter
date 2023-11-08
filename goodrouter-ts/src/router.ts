@@ -63,7 +63,6 @@ export class Router<K extends string | number> {
     protected options: RouterOptions & typeof defaultRouterOptions;
 
     private rootNode = new RouteNode<K>();
-    private leafNodes = new Map<K, RouteNode<K>>();
     private templatePairs = new Map<
         K,
         Array<readonly [string, string | null]>
@@ -84,8 +83,6 @@ export class Router<K extends string | number> {
             ),
         ];
         this.templatePairs.set(routeKey, templatePairs);
-        const leafNode = this.rootNode.insert(routeKey, templatePairs);
-        this.leafNodes.set(routeKey, leafNode);
         return this;
     }
 
