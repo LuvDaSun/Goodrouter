@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { RouterJson } from "./json.js";
-import { Router } from "./router.js";
+import { Router, RouterMode } from "./router.js";
 import { parametersFromTemplates } from "./testing/parameters.js";
 import { loadTemplates } from "./testing/templates.js";
 
@@ -162,40 +161,64 @@ test("route-node-json", () => {
     const router = new Router();
     router.insertRoute(1, "x/y");
     router.insertRoute(2, "x/z");
-    const actual = router.saveToJson();
-    const expected: RouterJson<number> = {
-        templatePairs: [
-            [1, [["x/y", null]]],
-            [2, [["x/z", null]]],
+
+    const templatePairs = [
+        [1, [["x/y", null]]],
+        [2, [["x/z", null]]],
+    ];
+    const rootNode = {
+        anchor: "",
+        hasParameter: false,
+        routeKey: null,
+        children: [
+            {
+                anchor: "x/",
+                hasParameter: false,
+                routeKey: null,
+                children: [
+                    {
+                        anchor: "y",
+                        hasParameter: false,
+                        routeKey: 1,
+                        children: [],
+                    },
+                    {
+                        anchor: "z",
+                        hasParameter: false,
+                        routeKey: 2,
+                        children: [],
+                    },
+                ],
+            },
         ],
-        rootNode: {
-            anchor: "",
-            hasParameter: false,
-            routeKey: null,
-            children: [
-                {
-                    anchor: "x/",
-                    hasParameter: false,
-                    routeKey: null,
-                    children: [
-                        {
-                            anchor: "y",
-                            hasParameter: false,
-                            routeKey: 1,
-                            children: [],
-                        },
-                        {
-                            anchor: "z",
-                            hasParameter: false,
-                            routeKey: 2,
-                            children: [],
-                        },
-                    ],
-                },
-            ],
-        },
     };
-    assert.deepEqual(actual, expected);
+
+    {
+        const actual = router.saveToJson(RouterMode.Client);
+        const expected = {
+            rootNode: undefined,
+            templatePairs,
+        };
+        assert.deepEqual(actual, expected);
+    }
+
+    {
+        const actual = router.saveToJson(RouterMode.Server);
+        const expected = {
+            rootNode,
+            templatePairs: undefined,
+        };
+        assert.deepEqual(actual, expected);
+    }
+
+    {
+        const actual = router.saveToJson(RouterMode.Bidirectional);
+        const expected = {
+            rootNode,
+            templatePairs,
+        };
+        assert.deepEqual(actual, expected);
+    }
 });
 
 testTemplates("small");

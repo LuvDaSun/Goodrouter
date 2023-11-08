@@ -3,6 +3,12 @@ import { RouteNode } from "./route-node.js";
 import { defaultRouterOptions, RouterOptions } from "./router-options.js";
 import { parseTemplatePairs } from "./template.js";
 
+export enum RouterMode {
+    Client = 1 << 1,
+    Server = 1 << 2,
+    Bidirectional = Client | Server,
+}
+
 /**
  * @description
  * This is the actual router that contains all routes and does the actual routing
@@ -53,7 +59,10 @@ import { parseTemplatePairs } from "./template.js";
  * ```
  */
 export class Router<K extends string | number> {
-    constructor(options: RouterOptions = {}) {
+    constructor(
+        options: RouterOptions = {},
+        private mode = RouterMode.Bidirectional,
+    ) {
         this.options = {
             ...defaultRouterOptions,
             ...options,
@@ -82,8 +91,12 @@ export class Router<K extends string | number> {
                 this.options.parameterPlaceholderRE,
             ),
         ];
-        this.templatePairs.set(routeKey, templatePairs);
-        this.rootNode.insert(routeKey, templatePairs);
+        if ((this.mode & RouterMode.Client) > 0) {
+            this.templatePairs.set(routeKey, templatePairs);
+        }
+        if ((this.mode & RouterMode.Server) > 0) {
+            this.rootNode.insert(routeKey, templatePairs);
+        }
         return this;
     }
 
@@ -95,6 +108,10 @@ export class Router<K extends string | number> {
      * @returns tuple with the route name or null if no route found. Then the parameters
      */
     public parseRoute(path: string): [K | null, Record<string, string>] {
+        if ((this.mode & RouterMode.Server) === 0) {
+            throw new TypeError("Router needs to be in server mode to parse");
+        }
+
         const parameters: Record<string, string> = {};
 
         const [routeKey, parameterValues] = this.rootNode.parse(
@@ -138,6 +155,12 @@ export class Router<K extends string | number> {
         routeKey: K,
         routeParameters: Record<string, string> = {},
     ): string | null {
+        if ((this.mode & RouterMode.Client) === 0) {
+            throw new TypeError(
+                "Router needs to be in client mode to stringify",
+            );
+        }
+
         let result = "";
         const templatePairs = this.templatePairs.get(routeKey);
         if (templatePairs == null) {
@@ -154,16 +177,37 @@ export class Router<K extends string | number> {
         return result;
     }
 
-    public saveToJson(): RouterJson<K> {
+    public saveToJson(mode = this.mode): RouterJson<K> {
+        const rootNode =
+            (this.mode & mode & RouterMode.Server) > 0
+                ? this.rootNode.toJSON()
+                : undefined;
+        const templatePairs =
+            (this.mode & mode & RouterMode.Client) > 0
+                ? [...this.templatePairs]
+                : undefined;
+
         return {
-            rootNode: this.rootNode.toJSON(),
-            templatePairs: [...this.templatePairs],
+            rootNode,
+            templatePairs,
         };
     }
 
     public loadFromJson(json: RouterJson<K>) {
-        this.rootNode = RouteNode.fromJSON(json.rootNode);
-        this.templatePairs = new Map(json.templatePairs);
+        this.mode = RouterMode.Bidirectional;
+
+        if (json.rootNode == null) {
+            this.mode &= ~RouterMode.Server;
+        } else {
+            this.rootNode = RouteNode.fromJSON(json.rootNode);
+        }
+
+        if (json.templatePairs == null) {
+            this.mode &= ~RouterMode.Client;
+        } else {
+            this.templatePairs = new Map(json.templatePairs);
+        }
+
         return this;
     }
 }

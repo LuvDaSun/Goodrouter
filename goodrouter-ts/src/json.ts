@@ -6,6 +6,8 @@ export interface RouteNodeJson<K extends string | number> {
 }
 
 export interface RouterJson<K extends string | number> {
-    rootNode: RouteNodeJson<K>;
-    templatePairs: Array<readonly [K, Array<readonly [string, string | null]>]>;
+    rootNode?: RouteNodeJson<K>;
+    templatePairs?: Array<
+        readonly [K, Array<readonly [string, string | null]>]
+    >;
 }

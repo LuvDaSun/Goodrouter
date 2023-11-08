@@ -13,10 +13,8 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "clean": "rm -rf out",
-    "test": "npm run spec-all",
-    "lint": "prettier --check *",
-    "spec-all": "node --test ./out/*.spec.js ./out/*/*.spec.js",
-    "coverage": "c8 --reporter lcov --reporter cobertura npm test"
+    "test": "node --test ./out/*.spec.js ./out/*/*.spec.js",
+    "lint": "prettier --check *"
   },
   "repository": {
     "type": "git",
@@ -38,12 +36,10 @@
     "@tsconfig/node20": "^20.1.2",
     "@types/benchmark": "^2.1.5",
     "benchmark": "^2.1.4",
-    "c8": "^8.0.1",
     "itertools": "^2.1.2",
     "microtime": "^3.1.1",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2",
-    "wrangler": "^3.15.0"
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "@types/node": "^20.8.10",
