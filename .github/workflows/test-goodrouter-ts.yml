@@ -2,6 +2,9 @@ on:
   push:
     branches:
       - "*"
+    paths:
+      - fixtures/**
+      - goodrouter-ts/**
 
 jobs:
   test-unit:
