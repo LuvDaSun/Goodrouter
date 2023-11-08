@@ -83,6 +83,7 @@ export class Router<K extends string | number> {
             ),
         ];
         this.templatePairs.set(routeKey, templatePairs);
+        this.rootNode.insert(routeKey, templatePairs);
         return this;
     }
 
