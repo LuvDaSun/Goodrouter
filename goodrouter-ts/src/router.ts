@@ -1,4 +1,4 @@
-import { RouteNodeJson } from "./route-node-json.js";
+import { RouterJson } from "./json.js";
 import { RouteNode } from "./route-node.js";
 import { defaultRouterOptions, RouterOptions } from "./router-options.js";
 import { parseTemplatePairs } from "./template.js";
@@ -156,14 +156,16 @@ export class Router<K extends string | number> {
         return result;
     }
 
-    public saveToJSON(): RouteNodeJson<K> {
-        const json = this.rootNode.toJSON();
-        return json;
+    public saveToJson(): RouterJson<K> {
+        return {
+            rootNode: this.rootNode.toJSON(),
+            templatePairs: [...this.templatePairs],
+        };
     }
 
-    public loadFromJSON(json: RouteNodeJson<K>) {
-        const node = RouteNode.fromJSON(json);
-        this.rootNode = node;
+    public loadFromJson(json: RouterJson<K>) {
+        this.rootNode = RouteNode.fromJSON(json.rootNode);
+        this.templatePairs = new Map(json.templatePairs);
         return this;
     }
 }
