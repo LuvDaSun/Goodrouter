@@ -3,6 +3,9 @@ on:
     tags:
       - goodrouter-rs@*.*.*
 
+env:
+  PACKAGE: goodrouter
+
 jobs:
   publish-crates:
     runs-on: ubuntu-latest
@@ -13,5 +16,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: apk add cargo-edit
-      - run: cargo --package goodrouter set-version ${GITHUB_REF_NAME:14}
-      - run: cargo --package goodrouter publish --allow-dirty
+      - run: cargo --package $PACKAGE set-version ${GITHUB_REF_NAME:14}
+      - run: cargo --package $PACKAGE publish --allow-dirty
