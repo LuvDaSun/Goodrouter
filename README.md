@@ -1,4 +1,6 @@
-# Goodrouter, TypeScript edition
+# Goodrouter
+
+![Goodrouter](./assets/goodrouter-logo-2.png)
 
 A good router should:
 
