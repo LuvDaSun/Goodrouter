@@ -13,8 +13,7 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "clean": "rm -rf out",
-    "test": "node --test ./out/*.spec.js ./out/*/*.spec.js",
-    "lint": "prettier --check *"
+    "test": "node --test ./out/*.spec.js ./out/*/*.spec.js"
   },
   "repository": {
     "type": "git",

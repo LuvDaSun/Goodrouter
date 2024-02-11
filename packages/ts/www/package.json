@@ -1,8 +1,7 @@
 {
   "scripts": {
     "build": "eleventy",
-    "clean": "rm -rf out",
-    "lint": "prettier --check *"
+    "clean": "rm -rf out"
   },
   "author": "LuvDaSun Software B.V.",
   "license": "ISC",
