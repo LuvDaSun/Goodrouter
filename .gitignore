@@ -5,10 +5,12 @@
 node_modules/
 target/
 out/
+out-*/
 coverage/
 
 !.gitignore
 !.gitattributes
+!.prettierignore
 !.editorconfig
 !.npmrc
 
