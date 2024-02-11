@@ -325,6 +325,8 @@ mod tests {
     fn router_templates(name: &str) {
         let mut path = std::path::PathBuf::new();
         path.push("..");
+        path.push("..");
+        path.push("..");
         path.push("fixtures");
         path.push(name);
         path.set_extension("txt");

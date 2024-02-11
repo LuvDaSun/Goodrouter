@@ -30,6 +30,8 @@ fn router_parse_bench_github(criterion: &mut Criterion) {
 fn setup_group(criterion: &mut Criterion, name: &str) {
     let mut path = std::path::PathBuf::new();
     path.push("..");
+    path.push("..");
+    path.push("..");
     path.push("fixtures");
     path.push(name);
     path.set_extension("txt");
