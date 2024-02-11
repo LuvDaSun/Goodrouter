@@ -1,6 +1,6 @@
 [package]
 name = "goodrouter"
-version = "0.0.0"
+version = "1.0.12"
 edition = "2021"
 description = "a bi directional trie router for all your routing needs"
 license = "ISC"

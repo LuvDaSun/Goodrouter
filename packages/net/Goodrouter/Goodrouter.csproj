@@ -10,7 +10,7 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <Version>0.0.0</Version>
+        <Version>1.0.6</Version>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>ISC</PackageLicenseExpression>
         <Authors>LuvDaSun B.V.</Authors>
@@ -23,8 +23,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="../README.md" Pack="true" PackagePath="/" />
-        <None Include="../../assets/goodrouter-logo-2.png" Pack="true" PackagePath="/" />
+        <None Include="README.md" Pack="true" PackagePath="/" />
+        <None Include="../../../assets/goodrouter-logo-2.png" Pack="true" PackagePath="/" />
 
         <InternalsVisibleTo
             Include="$(AssemblyName).Spec, PublicKey=002400000480000094000000060200000024000052534131000400000100010049b65ce5e37f0bb89af6951284bb0f9ffc882dfc37eb8ad4ce2febe6ae9caf888a6ee6b8ce1b2b949a1efa74e73e15776d16742e3e75919e1b4631202edbde43d21b565d6d5aec9646c5fad8152da9571236b5c08b45da5385af2e9f6c541dbc7068edf18c29261adf1267d9429d334384792795503faf2e28c313b0eace92e1" />
