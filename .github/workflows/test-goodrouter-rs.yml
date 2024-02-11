@@ -13,7 +13,7 @@ jobs:
     env:
       CARGO_HOME: ${{ github.workspace }}/.cargo
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: apk add build-base
       - run: cargo test --all-targets
 
@@ -23,7 +23,7 @@ jobs:
     env:
       CARGO_HOME: ${{ github.workspace }}/.cargo
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: apk add musl-dev
       - run: rustup component add clippy
       - run: cargo clippy --all-targets
