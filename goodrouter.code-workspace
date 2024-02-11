@@ -10,27 +10,27 @@
         },
         {
             "name": "ts/www",
-            "path": "package/ts/www",
+            "path": "packages/ts/www",
         },
         {
             "name": "ts/goodrouter",
-            "path": "package/ts/goodrouter",
+            "path": "packages/ts/goodrouter",
         },
         {
             "name": "rs/goodrouter",
-            "path": "package/rs/goodrouter",
+            "path": "packages/rs/goodrouter",
         },
         {
             "name": "net/Goodrouter",
-            "path": "package/net/Goodrouter",
+            "path": "packages/net/Goodrouter",
         },
         {
             "name": "net/Goodrouter.Spec",
-            "path": "package/net/Goodrouter.Spec",
+            "path": "packages/net/Goodrouter.Spec",
         },
         {
             "name": "net/Goodrouter.Bench",
-            "path": "package/net/Goodrouter.Bench",
+            "path": "packages/net/Goodrouter.Bench",
         },
     ],
     "settings": {
