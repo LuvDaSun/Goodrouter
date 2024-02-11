@@ -4,10 +4,7 @@ on:
       - "*"
     paths:
       - fixtures/**
-      - goodrouter-net/**
-
-env:
-  PACKAGE: goodrouter-net
+      - packages/net/**
 
 jobs:
   test-spec:

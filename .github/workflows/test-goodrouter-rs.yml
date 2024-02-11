@@ -4,10 +4,7 @@ on:
       - "*"
     paths:
       - fixtures/**
-      - goodrouter-rs/**
-
-env:
-  PACKAGE: goodrouter
+      - packages/rs/**
 
 jobs:
   test-unit:
@@ -25,7 +22,7 @@ jobs:
             .cargo/
             target/
       - run: apk add build-base
-      - run: cargo --package $PACKAGE test --all-targets
+      - run: cargo test --all-targets
 
   test-lint:
     runs-on: ubuntu-latest
@@ -43,4 +40,4 @@ jobs:
             target/
       - run: apk add musl-dev
       - run: rustup component add clippy
-      - run: cargo --package $PACKAGE clippy --all-targets
+      - run: cargo clippy --all-targets

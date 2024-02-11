@@ -4,10 +4,7 @@ on:
       - "*"
     paths:
       - fixtures/**
-      - goodrouter-ts/**
-
-env:
-  NPM_CONFIG_WORKSPACE: goodrouter-ts
+      - packages/ts/**
 
 jobs:
   test-unit:
@@ -16,5 +13,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm ci
-      - run: npm run build
-      - run: npm test
+      - run: npm run build --workspaces --if-present
+      - run: npm test --workspaces --if-present
