@@ -1,9 +1,11 @@
 .*
 
+*.tsbuildinfo
+
 node_modules/
 target/
-coverage/
 out/
+coverage/
 
 !.gitignore
 !.gitattributes

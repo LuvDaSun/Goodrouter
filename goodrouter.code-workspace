@@ -5,6 +5,10 @@
             "path": "assets",
         },
         {
+            "name": "fixtures",
+            "path": "fixtures",
+        },
+        {
             "name": "ts/www",
             "path": "package/ts/www",
         },
