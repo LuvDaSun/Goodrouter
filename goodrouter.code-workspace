@@ -1,16 +1,24 @@
 {
     "folders": [
         {
-            "path": "goodrouter-ts"
+            "name": "assets",
+            "path": "assets"
         },
         {
-            "path": "goodrouter-www"
+            "name": "ts/www",
+            "path": "package/ts/goodrouter-www"
         },
         {
-            "path": "goodrouter-net"
+            "name": "ts/goodrouter",
+            "path": "package/ts/goodrouter-ts"
         },
         {
-            "path": "goodrouter-rs"
+            "name": "rs/goodrouter",
+            "path": "package/rs/goodrouter-rs"
+        },
+        {
+            "name": "net/goodrouter",
+            "path": "package/net/goodrouter-net"
         }
     ],
     "settings": {

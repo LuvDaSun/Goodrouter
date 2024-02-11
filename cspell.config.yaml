@@ -15,3 +15,6 @@ words:
   - rustup
 ignoreWords: []
 import: []
+useGitignore": true
+files": ["**"]
+enableFiletypes": ["*"]
