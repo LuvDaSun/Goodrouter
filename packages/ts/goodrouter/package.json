@@ -3,11 +3,20 @@
   "version": "2.1.2",
   "description": "a good router",
   "type": "module",
-  "main": "out/main.js",
-  "types": "out/main.d.ts",
+  "main": "./out-commonjs/main.js",
+  "module": "./out/main.js",
+  "types": "./out/main.d.ts",
+  "exports": {
+    ".": {
+      "require": "./out-commonjs/main.js",
+      "import": "./out/main.js",
+      "types": "./out/main.d.ts",
+      "browser": "./out/browser.js"
+    }
+  },
   "files": [
-    "out/*",
-    "src/*"
+    "./out/**",
+    "./out-commonjs/**"
   ],
   "scripts": {
     "prepack": "tsc --composite false; tsc --composite false --outDir out-commonjs --declaration false --module commonjs --moduleResolution Node10 ; echo '{\"type\":\"commonjs\"}' > out-commonjs/package.json",
