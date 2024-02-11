@@ -13,8 +13,11 @@ words:
   - npmjs
   - nupkg
   - rustup
+  - urlencoding
 ignoreWords: []
 import: []
 useGitignore": true
-files": ["**"]
-enableFiletypes": ["*"]
+files":
+  - "**"
+enableFiletypes":
+  - "*"
