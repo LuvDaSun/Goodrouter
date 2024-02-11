@@ -14,13 +14,6 @@ jobs:
       CARGO_HOME: ${{ github.workspace }}/.cargo
     steps:
       - uses: actions/checkout@v3
-      - run: apk add tar
-      - uses: actions/cache@v3
-        with:
-          key: ${{ github.job }}-${{ hashFiles('Cargo.lock') }}
-          path: |
-            .cargo/
-            target/
       - run: apk add build-base
       - run: cargo test --all-targets
 
@@ -31,13 +24,6 @@ jobs:
       CARGO_HOME: ${{ github.workspace }}/.cargo
     steps:
       - uses: actions/checkout@v3
-      - run: apk add tar
-      - uses: actions/cache@v3
-        with:
-          key: ${{ github.job }}-${{ hashFiles('Cargo.lock') }}
-          path: |
-            .cargo/
-            target/
       - run: apk add musl-dev
       - run: rustup component add clippy
       - run: cargo clippy --all-targets
