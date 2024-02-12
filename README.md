@@ -10,3 +10,75 @@ A good router should:
 - [x] be very minimal and simple!
 
 Check out our [website](https://www.goodrouter.org). And feel free to join our [Discord server](https://discord.gg/BJ8v7xTq8d)!
+
+## Releasing
+
+Releasing a new version should be done manually. Depending on the package you are releasing there is a slightly different process.
+
+### net/Goodrouter
+
+Make sure you have dotnet sdk 6.0 installed.
+
+Bump the versions in `packages/net/Goodrouter/Goodrouter.csproj`.
+
+Then create a package via
+
+```sh
+dotnet pack $PACKAGE/Goodrouter --configuration Release
+```
+
+Then commit your changes and push.
+
+And publish the package via
+
+```sh
+dotnet nuget push --source https://api.nuget.org/v3/index.json $PACKAGE/Goodrouter/bin/Release/'\*.nupkg'
+```
+
+### rs/goodrouter
+
+You need rust and cargo installed. Also install cargo-edit.
+
+Then update the package version via (of course you can also bump minor of major)
+
+```sh
+cargo --package goodrouter set-version --bump patch
+```
+
+Then commit and push your changes to git.
+
+Then publish the package to the registry
+
+```sh
+cargo --package goodrouter publish
+```
+
+### ts/goodrouter
+
+Bump the package version via
+
+```sh
+npm --workspace goodrouter version patch
+```
+
+Then commit and push to git.
+
+The publish the package via
+
+```sh
+npm --workspace goodrouter publish
+```
+
+### ts/www
+
+You need to have the aws cli installed. And you need to be authenticated and authorized! Then install everything via `npm install`, then build the project via
+
+```sh
+npm --workspace www run build
+```
+
+Then publish the website via
+
+```sh
+aws s3 sync packages/ts/www/out s3://www.goodrouter.org --delete
+```
