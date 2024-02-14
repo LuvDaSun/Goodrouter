@@ -17,8 +17,6 @@ words:
   - tamasfe
   - urlencoding
   - vadimcn
-ignoreWords: []
-import: []
 useGitignore: true
 files:
   - "**"
