@@ -22,8 +22,8 @@ words:
   - vadimcn
 ignoreWords: []
 import: []
-useGitignore": true
-files":
+useGitignore: true
+files:
   - "**"
-enableFiletypes":
+enableFiletypes:
   - "*"
