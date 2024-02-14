@@ -4,7 +4,7 @@ on:
       - "*"
     paths:
       - fixtures/**
-      - packages/ts/**
+      - packages/npm/**
 
 jobs:
   test-unit:

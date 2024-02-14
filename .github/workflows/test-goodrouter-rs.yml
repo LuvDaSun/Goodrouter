@@ -4,7 +4,7 @@ on:
       - "*"
     paths:
       - fixtures/**
-      - packages/rs/**
+      - packages/cargo/**
 
 jobs:
   test-unit:
