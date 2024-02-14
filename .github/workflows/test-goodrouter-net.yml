@@ -4,22 +4,19 @@ on:
       - "*"
     paths:
       - fixtures/**
-      - goodrouter-net/**
-
-env:
-  PACKAGE: goodrouter-net
+      - packages/net/**
 
 jobs:
   test-spec:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: dotnet test
 
   test-lint:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: dotnet format --verify-no-changes

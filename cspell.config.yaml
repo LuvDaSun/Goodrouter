@@ -5,13 +5,25 @@ dictionaries: []
 words:
   - clippy
   - cobertura
+  - dotnettools
   - esbenp
+  - eseom
   - goodrouter
   - itertools
   - lcov
   - microtime
+  - msjsdiag
   - npmjs
   - nupkg
   - rustup
+  - ryanluker
+  - tamasfe
+  - urlencoding
+  - vadimcn
 ignoreWords: []
 import: []
+useGitignore: true
+files:
+  - "**"
+enableFiletypes:
+  - "*"

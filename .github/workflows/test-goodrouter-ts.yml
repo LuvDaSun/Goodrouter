@@ -4,33 +4,22 @@ on:
       - "*"
     paths:
       - fixtures/**
-      - goodrouter-ts/**
-
-env:
-  NPM_CONFIG_WORKSPACE: goodrouter-ts
+      - packages/npm/**
 
 jobs:
   test-unit:
     runs-on: ubuntu-latest
     container: node:20.9-alpine3.17
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: npm ci
-      - run: npm run build
-      - run: npm test
+      - run: npm run build --workspaces --if-present
+      - run: npm test --workspaces --if-present
 
-  test-lint:
+  audit:
     runs-on: ubuntu-latest
-    container: node:20.9-alpine3.17
+    container: node:21.5.0-alpine3.19
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: npm ci
-      - run: npm run lint
-
-  test-audit:
-    runs-on: ubuntu-latest
-    container: node:20.9-alpine3.17
-    steps:
-      - uses: actions/checkout@v3
-      - run: npm ci
-      - run: npm audit --audit-level high
+      - run: npm --workspaces audit --audit-level high

@@ -1,14 +1,23 @@
 .*
 
+*.tsbuildinfo
+
 node_modules/
 target/
-coverage/
 out/
+out-*/
+coverage/
+obj/
+bin/
+TestResults/
+BenchmarkDotNet.Artifacts/
 
 !.gitignore
 !.gitattributes
+!.prettierignore
 !.editorconfig
 !.npmrc
+!.eleventy.js
 
 !.vscode/
 !.github/

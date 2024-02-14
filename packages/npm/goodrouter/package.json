@@ -1,0 +1,57 @@
+{
+  "name": "goodrouter",
+  "version": "2.1.3",
+  "description": "a good router",
+  "type": "module",
+  "main": "./out-commonjs/main.js",
+  "module": "./out/main.js",
+  "types": "./out/main.d.ts",
+  "exports": {
+    ".": {
+      "require": "./out-commonjs/main.js",
+      "import": "./out/main.js",
+      "types": "./out/main.d.ts",
+      "browser": "./out/browser.js"
+    }
+  },
+  "files": [
+    "./out/**",
+    "./out-commonjs/**"
+  ],
+  "scripts": {
+    "prepack": "tsc --composite false; tsc --composite false --outDir out-commonjs --declaration false --module commonjs --moduleResolution Node10 ; echo '{\"type\":\"commonjs\"}' > out-commonjs/package.json",
+    "pretest": "tsc --build",
+    "build": "tsc --build",
+    "clean": "rm -rf out out-* ; tsc --build --clean",
+    "test": "node --test ./out/**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/LuvDaSun/goodrouter.git"
+  },
+  "author": "LuvDaSun Software B.V.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuvDaSun/goodrouter/issues"
+  },
+  "keywords": [
+    "good",
+    "router",
+    "isomorphic",
+    "universal"
+  ],
+  "homepage": "https://ts.goodrouter.org",
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.2",
+    "@types/benchmark": "^2.1.5",
+    "benchmark": "^2.1.4",
+    "itertools": "^2.1.2",
+    "microtime": "^3.1.1",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@types/node": "^20.8.10",
+    "tslib": "^2.6.2"
+  }
+}

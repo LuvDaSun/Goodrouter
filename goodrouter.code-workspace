@@ -1,19 +1,62 @@
 {
     "folders": [
         {
-            "path": "goodrouter-ts"
+            "name": "assets",
+            "path": "assets",
         },
         {
-            "path": "goodrouter-www"
+            "name": "fixtures",
+            "path": "fixtures",
         },
         {
-            "path": "goodrouter-net"
+            "name": "npm/www",
+            "path": "packages/npm/www",
         },
         {
-            "path": "goodrouter-rs"
-        }
+            "name": "npm/goodrouter",
+            "path": "packages/npm/goodrouter",
+        },
+        {
+            "name": "cargo/goodrouter",
+            "path": "packages/cargo/goodrouter",
+        },
+        {
+            "name": "net/Goodrouter",
+            "path": "packages/net/Goodrouter",
+        },
+        {
+            "name": "net/Goodrouter.Spec",
+            "path": "packages/net/Goodrouter.Spec",
+        },
+        {
+            "name": "net/Goodrouter.Bench",
+            "path": "packages/net/Goodrouter.Bench",
+        },
     ],
     "settings": {
-        "rust-analyzer.check.command": "clippy"
-    }
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "always",
+            "source.organizeImports": "always",
+        },
+        "editor.rulers": [100],
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "rust-analyzer.check.command": "clippy",
+    },
+    "extensions": {
+        "recommendations": [
+            "editorconfig.editorconfig",
+            "ryanluker.vscode-coverage-gutters",
+            "tamasfe.even-better-toml",
+            "ms-dotnettools.csharp",
+            "redhat.vscode-xml",
+            "streetsidesoftware.code-spell-checker",
+            "rust-lang.rust-analyzer",
+            "vadimcn.vscode-lldb",
+            "esbenp.prettier-vscode",
+            "eseom.nunjucks-template",
+            "firefox-devtools.vscode-firefox-debug",
+            "msjsdiag.debugger-for-chrome",
+        ],
+    },
 }

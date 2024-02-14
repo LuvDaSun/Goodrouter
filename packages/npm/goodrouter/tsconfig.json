@@ -1,0 +1,11 @@
+{
+  "extends": "@tsconfig/node20",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./out",
+    "sourceMap": true,
+    "declaration": true,
+    "composite": true
+  },
+  "include": ["src/**/*"]
+}
