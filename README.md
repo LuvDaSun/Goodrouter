@@ -35,7 +35,7 @@ And publish the package via
 dotnet nuget push packages/net/Goodrouter/bin/Release/*.nupkg
 ```
 
-### rs/goodrouter
+### cargo/goodrouter
 
 You need rust and cargo installed. Also install cargo-edit.
 
@@ -53,7 +53,7 @@ Then publish the package to the registry
 cargo publish --package goodrouter
 ```
 
-### ts/goodrouter
+### npm/goodrouter
 
 Bump the package version via
 
@@ -69,7 +69,7 @@ The publish the package via
 npm --workspace goodrouter publish
 ```
 
-### ts/www
+### npm/www
 
 You need to have the aws cli installed. And you need to be authenticated and authorized! Then install everything via `npm install`, then build the project via
 
@@ -80,5 +80,5 @@ npm --workspace www run build
 Then publish the website via
 
 ```sh
-aws s3 sync packages/ts/www/out s3://www.goodrouter.org --delete
+aws s3 sync --delete packages/npm/www/out s3://www.goodrouter.org
 ```

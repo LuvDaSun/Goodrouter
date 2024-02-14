@@ -9,16 +9,16 @@
             "path": "fixtures",
         },
         {
-            "name": "ts/www",
-            "path": "packages/ts/www",
+            "name": "npm/www",
+            "path": "packages/npm/www",
         },
         {
-            "name": "ts/goodrouter",
-            "path": "packages/ts/goodrouter",
+            "name": "npm/goodrouter",
+            "path": "packages/npm/goodrouter",
         },
         {
-            "name": "rs/goodrouter",
-            "path": "packages/rs/goodrouter",
+            "name": "cargo/goodrouter",
+            "path": "packages/cargo/goodrouter",
         },
         {
             "name": "net/Goodrouter",
