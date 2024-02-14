@@ -17,14 +17,14 @@ Releasing a new version should be done manually. Depending on the package you ar
 
 ### net/Goodrouter
 
-Make sure you have dotnet sdk 6.0 installed.
+Make sure you have dotnet sdk 6.0 installed. Also install nuget.
 
 Bump the versions in `packages/net/Goodrouter/Goodrouter.csproj`.
 
 Then create a package via
 
 ```sh
-dotnet pack $PACKAGE/Goodrouter --configuration Release
+dotnet pack
 ```
 
 Then commit your changes and push.
@@ -32,7 +32,7 @@ Then commit your changes and push.
 And publish the package via
 
 ```sh
-dotnet nuget push --source https://api.nuget.org/v3/index.json $PACKAGE/Goodrouter/bin/Release/'\*.nupkg'
+dotnet nuget push packages/net/Goodrouter/bin/Release/*.nupkg
 ```
 
 ### rs/goodrouter
@@ -42,7 +42,7 @@ You need rust and cargo installed. Also install cargo-edit.
 Then update the package version via (of course you can also bump minor of major)
 
 ```sh
-cargo --package goodrouter set-version --bump patch
+cargo set-version --bump patch --package goodrouter
 ```
 
 Then commit and push your changes to git.
@@ -50,7 +50,7 @@ Then commit and push your changes to git.
 Then publish the package to the registry
 
 ```sh
-cargo --package goodrouter publish
+cargo publish --package goodrouter
 ```
 
 ### ts/goodrouter
