@@ -3,11 +3,11 @@
 import cp from "child_process";
 import path from "path";
 
-cp.execSync(["tsc"].join(" "));
+cp.execFileSync("tsc", [], { shell: true });
 
-cp.execSync(
+cp.execFileSync(
+  "rollup",
   [
-    "rollup",
     "--input",
     path.resolve("transpiled", "main.js"),
     "--file",
@@ -15,13 +15,13 @@ cp.execSync(
     "--sourcemap",
     "--format",
     "es",
-  ].join(" "),
-  {},
+  ],
+  { shell: true },
 );
 
-cp.execSync(
+cp.execFileSync(
+  "rollup",
   [
-    "rollup",
     "--input",
     path.resolve("transpiled", "main.js"),
     "--file",
@@ -29,5 +29,6 @@ cp.execSync(
     "--sourcemap",
     "--format",
     "cjs",
-  ].join(" "),
+  ],
+  { shell: true },
 );
