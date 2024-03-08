@@ -1,29 +1,34 @@
 on:
+  pull_request: {}
   push:
     branches:
       - "*"
     paths:
+      - Cargo.lock
+      - .github/**
       - fixtures/**
       - packages/cargo/**
 
 jobs:
-  test-unit:
+  test:
     runs-on: ubuntu-latest
-    container: rust:1.73-alpine3.17
-    env:
-      CARGO_HOME: ${{ github.workspace }}/.cargo
+    container: rust:1.76.0
     steps:
       - uses: actions/checkout@v4
-      - run: apk add build-base
-      - run: cargo test --all-targets
+      - run: cargo test --workspace --all-targets
 
-  test-lint:
+  clippy:
     runs-on: ubuntu-latest
-    container: rust:1.73-alpine3.17
-    env:
-      CARGO_HOME: ${{ github.workspace }}/.cargo
+    container: rust:1.76.0
     steps:
       - uses: actions/checkout@v4
-      - run: apk add musl-dev
       - run: rustup component add clippy
       - run: cargo clippy --all-targets
+
+  rustfmt:
+    runs-on: ubuntu-latest
+    container: rust:1.76.0
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup component add rustfmt
+      - run: cargo fmt --check
