@@ -3,69 +3,69 @@ using Xunit;
 
 public class TemplateUtilitySpec
 {
-    private Regex parameterPlaceholderRE = new Regex("\\{(.*?)\\}");
+  private Regex parameterPlaceholderRE = new Regex("\\{(.*?)\\}");
 
-    [Fact]
-    public void ParseTemplatePartsTest()
+  [Fact]
+  public void ParseTemplatePartsTest()
+  {
     {
-        {
-            var parts = TemplateUtility.ParseTemplateParts("/a/{b}/{c}", parameterPlaceholderRE).ToArray();
+      var parts = TemplateUtility.ParseTemplateParts("/a/{b}/{c}", parameterPlaceholderRE).ToArray();
 
-            Assert.Equal(
-                new string[] { "/a/", "b", "/", "c", "" },
-                parts
-            );
-        }
-
-        {
-            var parts = TemplateUtility.ParseTemplateParts("/a/{b}/{c}/", parameterPlaceholderRE).ToArray();
-
-            Assert.Equal(
-                new string[] { "/a/", "b", "/", "c", "/" },
-                parts
-            );
-        }
-
-        {
-            var parts = TemplateUtility.ParseTemplateParts("", parameterPlaceholderRE).ToArray();
-
-            Assert.Equal(
-                new string[] { "" },
-                parts
-            );
-        }
-
+      Assert.Equal(
+          new string[] { "/a/", "b", "/", "c", "" },
+          parts
+      );
     }
 
-    [Fact]
-    public void ParseTemplatePairsTest()
     {
-        {
-            var parts = TemplateUtility.ParseTemplatePairs("/a/{b}/{c}", parameterPlaceholderRE).ToArray();
+      var parts = TemplateUtility.ParseTemplateParts("/a/{b}/{c}/", parameterPlaceholderRE).ToArray();
 
-            Assert.Equal(
-                new (string, string?)[] { ("/a/", null), ("/", "b"), ("", "c") },
-                parts
-            );
-        }
-
-        {
-            var parts = TemplateUtility.ParseTemplatePairs("/a/{b}/{c}/", parameterPlaceholderRE).ToArray();
-
-            Assert.Equal(
-                new (string, string?)[] { ("/a/", null), ("/", "b"), ("/", "c") },
-                parts
-            );
-        }
-
-        {
-            var parts = TemplateUtility.ParseTemplatePairs("", parameterPlaceholderRE).ToArray();
-
-            Assert.Equal(
-                new (string, string?)[] { ("", null) },
-                parts
-            );
-        }
+      Assert.Equal(
+          new string[] { "/a/", "b", "/", "c", "/" },
+          parts
+      );
     }
+
+    {
+      var parts = TemplateUtility.ParseTemplateParts("", parameterPlaceholderRE).ToArray();
+
+      Assert.Equal(
+          new string[] { "" },
+          parts
+      );
+    }
+
+  }
+
+  [Fact]
+  public void ParseTemplatePairsTest()
+  {
+    {
+      var parts = TemplateUtility.ParseTemplatePairs("/a/{b}/{c}", parameterPlaceholderRE).ToArray();
+
+      Assert.Equal(
+          new (string, string?)[] { ("/a/", null), ("/", "b"), ("", "c") },
+          parts
+      );
+    }
+
+    {
+      var parts = TemplateUtility.ParseTemplatePairs("/a/{b}/{c}/", parameterPlaceholderRE).ToArray();
+
+      Assert.Equal(
+          new (string, string?)[] { ("/a/", null), ("/", "b"), ("/", "c") },
+          parts
+      );
+    }
+
+    {
+      var parts = TemplateUtility.ParseTemplatePairs("", parameterPlaceholderRE).ToArray();
+
+      Assert.Equal(
+          new (string, string?)[] { ("", null) },
+          parts
+      );
+    }
+  }
 
 }

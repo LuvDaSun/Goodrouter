@@ -9,37 +9,35 @@ runBenchmark("docker");
 runBenchmark("github");
 
 function runBenchmark(name: string) {
-    const templates = loadTemplates(name);
-    const parameterNames = [...parametersFromTemplates(templates)];
-    const parameters = Object.fromEntries(
-        parameterNames.map((name, index) => [name, `p${index}`]),
-    );
+  const templates = loadTemplates(name);
+  const parameterNames = [...parametersFromTemplates(templates)];
+  const parameters = Object.fromEntries(parameterNames.map((name, index) => [name, `p${index}`]));
 
-    const templateCount = templates.length;
+  const templateCount = templates.length;
 
-    const router = new Router();
-    for (const template of templates) {
-        router.insertRoute(template, template);
-    }
+  const router = new Router();
+  for (const template of templates) {
+    router.insertRoute(template, template);
+  }
 
-    const paths = templates.map((template) => {
-        const path = router.stringifyRoute(template, parameters);
-        assert(path != null);
-        return path;
-    });
+  const paths = templates.map((template) => {
+    const path = router.stringifyRoute(template, parameters);
+    assert(path != null);
+    return path;
+  });
 
-    let iteration = 0;
-    function benchmarkTask() {
-        const path = paths[iteration % templateCount];
+  let iteration = 0;
+  function benchmarkTask() {
+    const path = paths[iteration % templateCount];
 
-        router.parseRoute(path);
+    router.parseRoute(path);
 
-        iteration++;
-    }
+    iteration++;
+  }
 
-    const benchmark = new Benchmark(name, benchmarkTask);
+  const benchmark = new Benchmark(name, benchmarkTask);
 
-    benchmark.run();
+  benchmark.run();
 
-    console.log(String(benchmark));
+  console.log(String(benchmark));
 }

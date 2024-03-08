@@ -9,9 +9,9 @@ on:
       - packages/npm/**
 
 jobs:
-  test-unit:
+  test:
     runs-on: ubuntu-latest
-    container: node:20.9-alpine3.17
+    container: node:21.5.0-alpine3.19
     steps:
       - uses: actions/checkout@v4
       - run: npm ci

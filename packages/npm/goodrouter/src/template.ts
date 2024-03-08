@@ -8,41 +8,32 @@
  * @param parameterPlaceholderRE regular expression to use when searching for parameter placeholders
  * @returns Iterable of strings, always an uneven number of elements.
  */
-export function* parseTemplateParts(
-    routeTemplate: string,
-    parameterPlaceholderRE: RegExp,
-) {
-    if (!parameterPlaceholderRE.global) {
-        throw new Error("regular expression needs to be global");
-    }
+export function* parseTemplateParts(routeTemplate: string, parameterPlaceholderRE: RegExp) {
+  if (!parameterPlaceholderRE.global) {
+    throw new Error("regular expression needs to be global");
+  }
 
-    let match;
-    let offsetIndex = 0;
-    while ((match = parameterPlaceholderRE.exec(routeTemplate)) != null) {
-        yield routeTemplate.substring(
-            offsetIndex,
-            parameterPlaceholderRE.lastIndex - match[0].length,
-        );
-        yield match[1];
-        offsetIndex = parameterPlaceholderRE.lastIndex;
-    }
-    yield routeTemplate.substring(offsetIndex);
+  let match;
+  let offsetIndex = 0;
+  while ((match = parameterPlaceholderRE.exec(routeTemplate)) != null) {
+    yield routeTemplate.substring(offsetIndex, parameterPlaceholderRE.lastIndex - match[0].length);
+    yield match[1];
+    offsetIndex = parameterPlaceholderRE.lastIndex;
+  }
+  yield routeTemplate.substring(offsetIndex);
 }
 
-export function* parseTemplatePairs(
-    routeTemplate: string,
-    parameterPlaceholderRE: RegExp,
-) {
-    const parts = parseTemplateParts(routeTemplate, parameterPlaceholderRE);
+export function* parseTemplatePairs(routeTemplate: string, parameterPlaceholderRE: RegExp) {
+  const parts = parseTemplateParts(routeTemplate, parameterPlaceholderRE);
 
-    let index = 0;
-    let parameter: string | null = null;
-    for (const part of parts) {
-        if (index % 2 === 0) {
-            yield [part, parameter] as const;
-        } else {
-            parameter = part;
-        }
-        index++;
+  let index = 0;
+  let parameter: string | null = null;
+  for (const part of parts) {
+    if (index % 2 === 0) {
+      yield [part, parameter] as const;
+    } else {
+      parameter = part;
     }
+    index++;
+  }
 }

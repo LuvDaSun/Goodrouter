@@ -42,6 +42,8 @@
         "editor.rulers": [100],
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "rust-analyzer.check.command": "clippy",
+        "typescript.tsdk": "./node_modules/typescript/lib",
+        "npm.packageManager": "npm",
     },
     "extensions": {
         "recommendations": [
