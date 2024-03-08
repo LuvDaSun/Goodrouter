@@ -1,7 +1,4 @@
 version: "0.2"
-ignorePaths: []
-dictionaryDefinitions: []
-dictionaries: []
 words:
   - clippy
   - cobertura
@@ -20,8 +17,6 @@ words:
   - tamasfe
   - urlencoding
   - vadimcn
-ignoreWords: []
-import: []
 useGitignore: true
 files:
   - "**"
