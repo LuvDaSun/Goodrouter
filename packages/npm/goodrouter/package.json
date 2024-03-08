@@ -3,27 +3,26 @@
   "version": "2.1.4",
   "description": "a good router",
   "type": "module",
-  "main": "./out-commonjs/main.js",
-  "module": "./out/main.js",
-  "types": "./out/main.d.ts",
+  "main": "./bundled/main.cjs",
+  "module": "./bundled/main.js",
+  "types": "./types/main.d.ts",
   "exports": {
     ".": {
-      "require": "./out-commonjs/main.js",
-      "import": "./out/main.js",
-      "types": "./out/main.d.ts",
-      "browser": "./out/browser.js"
+      "require": "./bundled/main.cjs",
+      "import": "./bundled/main.js",
+      "types": "./types/main.d.ts"
     }
   },
   "files": [
-    "./out/**",
-    "./out-commonjs/**"
+    "./types/**",
+    "./bundled/**"
   ],
   "scripts": {
-    "prepack": "tsc --composite false; tsc --composite false --outDir out-commonjs --declaration false --module commonjs --moduleResolution Node10 ; echo {\\\"type\\\":\\\"commonjs\\\"}> out-commonjs/package.json",
+    "prepack": "./scripts/build.js",
     "pretest": "tsc --build",
     "build": "tsc --build",
-    "clean": "rm -rf out out-* ; tsc --build --clean",
-    "test": "node --test ./out/**/*.test.js"
+    "clean": "./scripts/clean.js",
+    "test": "node --test ./out/*.test.js ./out/*/*.test.js ./out/*/*/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -48,6 +47,7 @@
     "itertools": "^2.2.5",
     "microtime": "^3.1.1",
     "prettier": "^3.2.5",
+    "rollup": "^4.12.1",
     "typescript": "^5.4.2"
   },
   "dependencies": {

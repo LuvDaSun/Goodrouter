@@ -4,8 +4,10 @@
 
 node_modules/
 target/
+transpiled/
+types/
+bundled/
 out/
-out-*/
 coverage/
 obj/
 bin/

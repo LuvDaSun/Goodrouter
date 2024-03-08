@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { projectRoot } from "../utils/root.js";
+import { projectRoot } from "../root.js";
 
 export function loadTemplates(name: string) {
     const filePath = path.join(
