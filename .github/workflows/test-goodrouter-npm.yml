@@ -9,7 +9,7 @@ on:
       - packages/npm/**
 
 jobs:
-  test-unit:
+  test:
     runs-on: ubuntu-latest
     container: node:20.9-alpine3.17
     steps:
