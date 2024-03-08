@@ -22,7 +22,7 @@
     "pretest": "./scripts/build.js",
     "build": "./scripts/build.js",
     "clean": "./scripts/clean.js",
-    "test": "node --test ./transpiled/*.test.js ./transpiled/*/*.test.js ./transpiled/*/*/*.test.js"
+    "test": "node --test ./transpiled/**/*.test.js"
   },
   "repository": {
     "type": "git",
