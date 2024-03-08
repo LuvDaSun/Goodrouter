@@ -24,7 +24,7 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
 
-        <Content Include="../../fixtures/**">
+        <Content Include="../../../fixtures/**">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
