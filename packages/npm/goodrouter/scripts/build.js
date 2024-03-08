@@ -3,11 +3,11 @@
 import cp from "child_process";
 import path from "path";
 
-cp.spawnSync("tsc", [], { stdio: "inherit" });
+cp.execSync(["tsc"].join(" "));
 
-cp.spawnSync(
-  "rollup",
+cp.execSync(
   [
+    "rollup",
     "--input",
     path.resolve("transpiled", "main.js"),
     "--file",
@@ -15,13 +15,13 @@ cp.spawnSync(
     "--sourcemap",
     "--format",
     "es",
-  ],
-  { stdio: "inherit" },
+  ].join(" "),
+  {},
 );
 
-cp.spawnSync(
-  "rollup",
+cp.execSync(
   [
+    "rollup",
     "--input",
     path.resolve("transpiled", "main.js"),
     "--file",
@@ -29,6 +29,5 @@ cp.spawnSync(
     "--sourcemap",
     "--format",
     "cjs",
-  ],
-  { stdio: "inherit" },
+  ].join(" "),
 );
