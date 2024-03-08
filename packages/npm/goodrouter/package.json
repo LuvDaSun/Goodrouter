@@ -19,10 +19,10 @@
   ],
   "scripts": {
     "prepack": "./scripts/build.js",
-    "pretest": "tsc --build",
-    "build": "tsc --build",
+    "pretest": "./scripts/build.js",
+    "build": "./scripts/build.js",
     "clean": "./scripts/clean.js",
-    "test": "node --test ./out/*.test.js ./out/*/*.test.js ./out/*/*/*.test.js"
+    "test": "node --test ./transpiled/*.test.js ./transpiled/*/*.test.js ./transpiled/*/*/*.test.js"
   },
   "repository": {
     "type": "git",
