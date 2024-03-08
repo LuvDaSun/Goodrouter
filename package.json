@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "cspell": "^8.6.0",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "rollup": "^4.12.1",
+    "typescript": "^5.4.2"
   }
 }
