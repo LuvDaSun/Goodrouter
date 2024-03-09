@@ -45,7 +45,9 @@
     "@types/benchmark": "^2.1.5",
     "benchmark": "^2.1.4",
     "itertools": "^2.2.5",
-    "microtime": "^3.1.1"
+    "microtime": "^3.1.1",
+    "rollup": "^4.12.1",
+    "typescript": "^5.4.2"
   },
   "dependencies": {
     "@types/node": "^20.11.25",
