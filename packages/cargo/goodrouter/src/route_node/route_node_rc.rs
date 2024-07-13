@@ -146,8 +146,8 @@ impl<'r, K> RouteNodeRc<'r, K> {
         .find_similar_child(anchor, has_parameter);
 
       node_current_rc = route_node_merge(
-        node_current_rc,
-        child_node_rc,
+        &node_current_rc,
+        child_node_rc.as_ref(),
         anchor,
         has_parameter,
         route_key,

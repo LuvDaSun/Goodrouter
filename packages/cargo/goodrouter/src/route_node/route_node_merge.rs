@@ -1,8 +1,8 @@
 use super::*;
 
 pub fn route_node_merge<'r, K>(
-  parent_node_rc: RouteNodeRc<'r, K>,
-  child_node_rc: Option<RouteNodeRc<'r, K>>,
+  parent_node_rc: &RouteNodeRc<'r, K>,
+  child_node_rc: Option<&RouteNodeRc<'r, K>>,
   anchor: &'r str,
   has_parameter: bool,
   route_key: Option<K>,
@@ -58,7 +58,7 @@ pub fn route_node_merge<'r, K>(
 }
 
 fn route_node_merge_new<'r, K>(
-  parent_node_rc: RouteNodeRc<'r, K>,
+  parent_node_rc: &RouteNodeRc<'r, K>,
   anchor: &'r str,
   has_parameter: bool,
   route_key: Option<K>,
@@ -69,7 +69,7 @@ fn route_node_merge_new<'r, K>(
     has_parameter,
     route_key,
     route_parameter_names,
-    parent: Some((&parent_node_rc).into()),
+    parent: Some(parent_node_rc.into()),
     ..Default::default()
   };
 
@@ -81,7 +81,7 @@ fn route_node_merge_new<'r, K>(
 }
 
 fn route_node_merge_join<'r, K>(
-  child_node_rc: RouteNodeRc<'r, K>,
+  child_node_rc: &RouteNodeRc<'r, K>,
   route_key: Option<K>,
   route_parameter_names: Vec<&'r str>,
 ) -> RouteNodeRc<'r, K> {
@@ -100,8 +100,8 @@ fn route_node_merge_join<'r, K>(
 }
 
 fn route_node_merge_intermediate<'r, K>(
-  parent_node_rc: RouteNodeRc<'r, K>,
-  child_node_rc: RouteNodeRc<'r, K>,
+  parent_node_rc: &RouteNodeRc<'r, K>,
+  child_node_rc: &RouteNodeRc<'r, K>,
   anchor: &'r str,
   has_parameter: bool,
   route_key: Option<K>,
@@ -121,7 +121,7 @@ fn route_node_merge_intermediate<'r, K>(
   // remove the child from parent
   {
     let mut parent_node = parent_node_rc.0.borrow_mut();
-    parent_node.children.remove(&child_node_rc);
+    parent_node.children.remove(child_node_rc);
   }
 
   // create an intermediate node
@@ -131,7 +131,7 @@ fn route_node_merge_intermediate<'r, K>(
     let mut intermediate_node = RouteNode {
       anchor: &child_node.anchor[..common_prefix_length],
       has_parameter: child_node.has_parameter,
-      parent: Some((&parent_node_rc).into()),
+      parent: Some(parent_node_rc.into()),
       ..Default::default()
     };
 
@@ -166,8 +166,8 @@ fn route_node_merge_intermediate<'r, K>(
 }
 
 fn route_node_merge_add_to_child<'r, K>(
-  _parent_node_rc: RouteNodeRc<'r, K>,
-  child_node_rc: RouteNodeRc<'r, K>,
+  _parent_node_rc: &RouteNodeRc<'r, K>,
+  child_node_rc: &RouteNodeRc<'r, K>,
   anchor: &'r str,
   _has_parameter: bool,
   route_key: Option<K>,
@@ -177,25 +177,25 @@ fn route_node_merge_add_to_child<'r, K>(
   let anchor = &anchor[common_prefix_length..];
   let has_parameter = false;
 
-  let (common_prefix_length2, child_node_rc2) = child_node_rc
+  let (common_prefix_length_similar, child_node_rc_similar) = child_node_rc
     .0
     .borrow()
     .find_similar_child(anchor, has_parameter);
 
   return route_node_merge(
-    child_node_rc.clone(),
-    child_node_rc2,
+    child_node_rc,
+    child_node_rc_similar.as_ref(),
     anchor,
     has_parameter,
     route_key,
     route_parameter_names,
-    common_prefix_length2,
+    common_prefix_length_similar,
   );
 }
 
 fn route_node_merge_add_to_new<'r, K>(
-  parent_node_rc: RouteNodeRc<'r, K>,
-  child_node_rc: RouteNodeRc<'r, K>,
+  parent_node_rc: &RouteNodeRc<'r, K>,
+  child_node_rc: &RouteNodeRc<'r, K>,
   anchor: &'r str,
   has_parameter: bool,
   route_key: Option<K>,
@@ -213,12 +213,12 @@ fn route_node_merge_add_to_new<'r, K>(
 
   let mut parent_node = parent_node_rc.0.borrow_mut();
 
-  parent_node.children.remove(&child_node_rc);
+  parent_node.children.remove(child_node_rc);
   parent_node.children.insert(new_node_rc.clone());
 
   let mut new_node = new_node_rc.0.borrow_mut();
   new_node.children.insert(child_node_rc.clone());
-  new_node.parent = Some((&parent_node_rc).into());
+  new_node.parent = Some(parent_node_rc.into());
 
   let mut child_node = child_node_rc.0.borrow_mut();
   child_node.anchor = &child_node.anchor[common_prefix_length..];
