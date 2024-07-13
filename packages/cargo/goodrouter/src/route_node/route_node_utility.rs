@@ -9,11 +9,11 @@ pub fn route_node_find_similar_child<'r, K>(
   let anchor_chars: Vec<_> = anchor.chars().collect();
 
   for child_node_rc in parent_node.children.iter() {
-    if child_node_rc.borrow().has_parameter != has_parameter {
+    if child_node_rc.0.borrow().has_parameter != has_parameter {
       continue;
     }
 
-    let child_anchor_chars: Vec<_> = child_node_rc.borrow().anchor.chars().collect();
+    let child_anchor_chars: Vec<_> = child_node_rc.0.borrow().anchor.chars().collect();
 
     let common_prefix_length = find_common_prefix_length(&anchor_chars, &child_anchor_chars);
 

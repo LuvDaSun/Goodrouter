@@ -3,15 +3,13 @@ pub mod route_node_rc;
 pub mod route_node_utility;
 
 use route_node_utility::*;
-use std::{
-  cell::RefCell,
-  cmp::Ordering,
-  collections::BTreeSet,
-  rc::{Rc, Weak},
-};
+use std::{cell::RefCell, cmp::Ordering, collections::BTreeSet, rc};
 
-pub type RouteNodeRc<'r, K> = Rc<RefCell<RouteNode<'r, K>>>;
-pub type RouteNodeWeak<'r, K> = Weak<RefCell<RouteNode<'r, K>>>;
+#[derive(Debug)]
+pub struct RouteNodeRc<'r, K>(pub rc::Rc<RefCell<RouteNode<'r, K>>>);
+
+#[derive(Debug)]
+pub struct RouteNodeWeak<'r, K>(pub rc::Weak<RefCell<RouteNode<'r, K>>>);
 
 #[derive(Debug)]
 pub struct RouteNode<'r, K> {
@@ -27,6 +25,26 @@ pub struct RouteNode<'r, K> {
   children: BTreeSet<RouteNodeRc<'r, K>>,
   // parent node, should only be null for the root node
   parent: Option<RouteNodeWeak<'r, K>>,
+}
+
+impl<'r, K> TryFrom<&RouteNodeWeak<'r, K>> for RouteNodeRc<'r, K> {
+  type Error = ();
+
+  fn try_from(value: &RouteNodeWeak<'r, K>) -> Result<Self, Self::Error> {
+    Ok(Self(value.0.upgrade().ok_or(())?))
+  }
+}
+
+impl<'r, K> From<RouteNode<'r, K>> for RouteNodeRc<'r, K> {
+  fn from(value: RouteNode<'r, K>) -> Self {
+    Self(rc::Rc::new(RefCell::new(value)))
+  }
+}
+
+impl<'r, K> From<&RouteNodeRc<'r, K>> for RouteNodeWeak<'r, K> {
+  fn from(value: &RouteNodeRc<'r, K>) -> Self {
+    Self(rc::Rc::downgrade(&value.0))
+  }
 }
 
 impl<'r, K> Ord for RouteNode<'r, K> {
@@ -62,11 +80,31 @@ impl<'r, K> PartialOrd for RouteNode<'r, K> {
   }
 }
 
+impl<'r, K> Ord for RouteNodeRc<'r, K> {
+  fn cmp(&self, other: &Self) -> Ordering {
+    self.0.cmp(&other.0)
+  }
+}
+
+impl<'r, K> PartialOrd for RouteNodeRc<'r, K> {
+  fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+    Some(self.cmp(other))
+  }
+}
+
 impl<'r, K> Eq for RouteNode<'r, K> {}
 
 impl<'r, K> PartialEq for RouteNode<'r, K> {
   fn eq(&self, other: &Self) -> bool {
     self.anchor == other.anchor && self.has_parameter == other.has_parameter
+  }
+}
+
+impl<'r, K> Eq for RouteNodeRc<'r, K> {}
+
+impl<'r, K> PartialEq for RouteNodeRc<'r, K> {
+  fn eq(&self, other: &Self) -> bool {
+    self.0 == other.0
   }
 }
 
@@ -80,6 +118,18 @@ impl<'r, K> Default for RouteNode<'r, K> {
       children: Default::default(),
       parent: Default::default(),
     }
+  }
+}
+
+impl<'r, K> Default for RouteNodeRc<'r, K> {
+  fn default() -> Self {
+    Self(Default::default())
+  }
+}
+
+impl<'r, K> Clone for RouteNodeRc<'r, K> {
+  fn clone(&self) -> Self {
+    Self(self.0.clone())
   }
 }
 

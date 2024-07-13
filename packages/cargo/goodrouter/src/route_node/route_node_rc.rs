@@ -13,7 +13,7 @@ pub fn route_node_parse<'r, 'f, K: Copy>(
   let mut path = path;
   let mut parameter_values: Vec<&str> = Default::default();
 
-  let node = node_rc.borrow();
+  let node = node_rc.0.borrow();
 
   if node.has_parameter {
     // we are matching a parameter value! If the path's length is 0, there is no match, because a parameter value should have at least length 1
@@ -93,7 +93,7 @@ where
   let mut path_parts = Vec::new();
 
   while let Some(node_rc) = current_node_rc {
-    let node = node_rc.borrow();
+    let node = node_rc.0.borrow();
     path_parts.insert(0, Cow::Borrowed(node.anchor));
 
     if node.has_parameter {
@@ -104,7 +104,7 @@ where
     current_node_rc = node
       .parent
       .as_ref()
-      .map(|parent_node_weak| parent_node_weak.upgrade().unwrap());
+      .map(|parent_node_weak| parent_node_weak.try_into().unwrap());
   }
 
   path_parts
@@ -137,7 +137,7 @@ pub fn route_node_insert<'r, K: Copy>(
     };
 
     let (common_prefix_length, child_node_rc) =
-      route_node_find_similar_child(&node_current_rc.borrow(), anchor, has_parameter);
+      route_node_find_similar_child(&node_current_rc.0.borrow(), anchor, has_parameter);
 
     node_current_rc = route_node_merge(
       node_current_rc,
@@ -166,7 +166,7 @@ mod tests {
     let mut node_root_previous_rc = None;
 
     for route_configs in route_configs.iter().permutations(route_configs.len()) {
-      let node_root_rc = Rc::new(RefCell::new(RouteNode::default()));
+      let node_root_rc = RouteNodeRc::default();
 
       for template in route_configs {
         route_node_insert(
@@ -178,7 +178,7 @@ mod tests {
       }
 
       {
-        let node_root = node_root_rc.borrow();
+        let node_root = node_root_rc.0.borrow();
         assert_eq!(node_root.children.len(), 1);
       }
 

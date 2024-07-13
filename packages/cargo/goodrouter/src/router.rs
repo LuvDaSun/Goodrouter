@@ -110,7 +110,7 @@ impl<'r, K: Eq + Hash + Copy> Router<'r, K> {
     'r: 'f,
   {
     if let Some(node_rc) = self.leaf_nodes_rc.get(&route_key) {
-      let parameter_values: Vec<_> = node_rc
+      let parameter_values: Vec<_> = node_rc.0
         .borrow()
         .route_parameter_names
         .iter()
