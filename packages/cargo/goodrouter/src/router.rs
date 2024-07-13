@@ -1,8 +1,4 @@
-use crate::{
-  route_node::route_node_rc::{route_node_insert, route_node_parse, route_node_stringify},
-  route_node::RouteNodeRc,
-  template::TEMPLATE_PLACEHOLDER_REGEX,
-};
+use crate::{route_node::RouteNodeRc, template::TEMPLATE_PLACEHOLDER_REGEX};
 use regex::Regex;
 use std::hash::Hash;
 use std::{borrow::Cow, collections::HashMap};
@@ -66,23 +62,18 @@ impl<'r, K: Eq + Hash + Copy> Router<'r, K> {
   }
 
   pub fn insert_route(&mut self, route_key: K, template: &'r str) -> &mut Self {
-    let leaf_node_rc = route_node_insert(
-      self.root_node_rc.clone(),
-      route_key,
-      template,
-      self.parameter_placeholder_re,
-    );
+    let leaf_node_rc = self
+      .root_node_rc
+      .insert(route_key, template, self.parameter_placeholder_re);
     self.leaf_nodes_rc.insert(route_key, leaf_node_rc);
 
     self
   }
 
   pub fn parse_route<'f>(&self, path: &'f str) -> (Option<K>, HashMap<&'r str, Cow<'f, str>>) {
-    let (route_key, parameter_names, parameter_values) = route_node_parse(
-      self.root_node_rc.clone(),
-      path,
-      self.maximum_parameter_value_length,
-    );
+    let (route_key, parameter_names, parameter_values) = self
+      .root_node_rc
+      .parse(path, self.maximum_parameter_value_length);
 
     if let Some(route_key) = route_key {
       let parameters: HashMap<_, _> = parameter_names
@@ -111,6 +102,7 @@ impl<'r, K: Eq + Hash + Copy> Router<'r, K> {
   {
     if let Some(node_rc) = self.leaf_nodes_rc.get(&route_key) {
       let parameter_values: Vec<_> = node_rc
+        .0
         .borrow()
         .route_parameter_names
         .iter()
@@ -118,7 +110,7 @@ impl<'r, K: Eq + Hash + Copy> Router<'r, K> {
         .map(|parameter_value| (self.parameter_value_encoder)(parameter_value))
         .collect();
 
-      Some(route_node_stringify(node_rc.clone(), parameter_values))
+      Some(node_rc.stringify(parameter_values))
     } else {
       None
     }
