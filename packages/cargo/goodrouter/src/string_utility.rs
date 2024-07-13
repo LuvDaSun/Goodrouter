@@ -1,6 +1,6 @@
 use std::cmp;
 
-pub fn find_common_prefix_length(chars_left: &Vec<char>, chars_right: &Vec<char>) -> usize {
+pub fn find_common_prefix_length(chars_left: &[char], chars_right: &[char]) -> usize {
   let common_length = cmp::min(chars_left.len(), chars_right.len());
 
   let mut index = 0;
@@ -25,24 +25,24 @@ mod tests {
   fn common_prefix_length_test() {
     assert_eq!(
       find_common_prefix_length(
-        &String::from("ab").chars().collect(),
-        &String::from("abc").chars().collect()
+        &String::from("ab").chars().collect::<Vec<_>>(),
+        &String::from("abc").chars().collect::<Vec<_>>()
       ),
       2
     );
 
     assert_eq!(
       find_common_prefix_length(
-        &String::from("abc").chars().collect(),
-        &String::from("abc").chars().collect()
+        &String::from("abc").chars().collect::<Vec<_>>(),
+        &String::from("abc").chars().collect::<Vec<_>>()
       ),
       3
     );
 
     assert_eq!(
       find_common_prefix_length(
-        &String::from("bc").chars().collect(),
-        &String::from("abc").chars().collect()
+        &String::from("bc").chars().collect::<Vec<_>>(),
+        &String::from("abc").chars().collect::<Vec<_>>()
       ),
       0,
     );
