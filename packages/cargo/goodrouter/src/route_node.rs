@@ -2,13 +2,13 @@ pub mod route_node_merge;
 pub mod route_node_rc;
 pub mod route_node_utility;
 
-use std::{cell::RefCell, cmp::Ordering, collections::BTreeSet, rc};
+use std::{cell, cmp, collections::BTreeSet, rc};
 
 #[derive(Debug)]
-pub struct RouteNodeRc<'r, K>(pub rc::Rc<RefCell<RouteNode<'r, K>>>);
+pub struct RouteNodeRc<'r, K>(pub rc::Rc<cell::RefCell<RouteNode<'r, K>>>);
 
 #[derive(Debug)]
-pub struct RouteNodeWeak<'r, K>(pub rc::Weak<RefCell<RouteNode<'r, K>>>);
+pub struct RouteNodeWeak<'r, K>(pub rc::Weak<cell::RefCell<RouteNode<'r, K>>>);
 
 #[derive(Debug)]
 pub struct RouteNode<'r, K> {
@@ -36,7 +36,7 @@ impl<'r, K> TryFrom<&RouteNodeWeak<'r, K>> for RouteNodeRc<'r, K> {
 
 impl<'r, K> From<RouteNode<'r, K>> for RouteNodeRc<'r, K> {
   fn from(value: RouteNode<'r, K>) -> Self {
-    Self(rc::Rc::new(RefCell::new(value)))
+    Self(rc::Rc::new(cell::RefCell::new(value)))
   }
 }
 
@@ -47,46 +47,46 @@ impl<'r, K> From<&RouteNodeRc<'r, K>> for RouteNodeWeak<'r, K> {
 }
 
 impl<'r, K> Ord for RouteNode<'r, K> {
-  fn cmp(&self, other: &Self) -> Ordering {
+  fn cmp(&self, other: &Self) -> cmp::Ordering {
     if self.anchor.len() < other.anchor.len() {
-      return Ordering::Greater;
+      return cmp::Ordering::Greater;
     }
     if self.anchor.len() > other.anchor.len() {
-      return Ordering::Less;
+      return cmp::Ordering::Less;
     }
 
     if !self.has_parameter && other.has_parameter {
-      return Ordering::Less;
+      return cmp::Ordering::Less;
     }
     if self.has_parameter && !other.has_parameter {
-      return Ordering::Greater;
+      return cmp::Ordering::Greater;
     }
 
     if self.anchor < other.anchor {
-      return Ordering::Less;
+      return cmp::Ordering::Less;
     }
     if self.anchor > other.anchor {
-      return Ordering::Greater;
+      return cmp::Ordering::Greater;
     }
 
-    Ordering::Equal
+    cmp::Ordering::Equal
   }
 }
 
 impl<'r, K> PartialOrd for RouteNode<'r, K> {
-  fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+  fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
     Some(self.cmp(other))
   }
 }
 
 impl<'r, K> Ord for RouteNodeRc<'r, K> {
-  fn cmp(&self, other: &Self) -> Ordering {
+  fn cmp(&self, other: &Self) -> cmp::Ordering {
     self.0.cmp(&other.0)
   }
 }
 
 impl<'r, K> PartialOrd for RouteNodeRc<'r, K> {
-  fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+  fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
     Some(self.cmp(other))
   }
 }
