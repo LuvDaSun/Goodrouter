@@ -177,8 +177,10 @@ fn route_node_merge_add_to_child<'r, K>(
   let anchor = &anchor[common_prefix_length..];
   let has_parameter = false;
 
-  let (common_prefix_length2, child_node_rc2) =
-    route_node_find_similar_child(&child_node_rc.0.borrow(), anchor, has_parameter);
+  let (common_prefix_length2, child_node_rc2) = child_node_rc
+    .0
+    .borrow()
+    .find_similar_child(anchor, has_parameter);
 
   return route_node_merge(
     child_node_rc.clone(),

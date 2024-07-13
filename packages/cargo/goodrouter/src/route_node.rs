@@ -2,7 +2,6 @@ pub mod route_node_merge;
 pub mod route_node_rc;
 pub mod route_node_utility;
 
-use route_node_utility::*;
 use std::{cell::RefCell, cmp::Ordering, collections::BTreeSet, rc};
 
 #[derive(Debug)]
