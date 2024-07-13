@@ -1,5 +1,5 @@
-use super::route_node_merge::*;
 use super::*;
+use crate::string_utility::find_common_prefix_length;
 use crate::template::template_pairs::parse_template_pairs;
 use regex::Regex;
 use std::borrow::Cow;
@@ -145,8 +145,7 @@ impl<'r, K> RouteNodeRc<'r, K> {
         .borrow()
         .find_similar_child(anchor, has_parameter);
 
-      node_current_rc = route_node_merge(
-        &node_current_rc,
+      node_current_rc = node_current_rc.merge(
         child_node_rc.as_ref(),
         anchor,
         has_parameter,
@@ -157,6 +156,34 @@ impl<'r, K> RouteNodeRc<'r, K> {
     }
 
     node_current_rc
+  }
+}
+
+impl<'r, K> RouteNode<'r, K> {
+  pub fn find_similar_child(
+    &self,
+    anchor: &'r str,
+    has_parameter: bool,
+  ) -> (usize, Option<RouteNodeRc<'r, K>>) {
+    let anchor_chars: Vec<_> = anchor.chars().collect();
+
+    for child_node_rc in self.children.iter() {
+      if child_node_rc.0.borrow().has_parameter != has_parameter {
+        continue;
+      }
+
+      let child_anchor_chars: Vec<_> = child_node_rc.0.borrow().anchor.chars().collect();
+
+      let common_prefix_length = find_common_prefix_length(&anchor_chars, &child_anchor_chars);
+
+      if common_prefix_length == 0 {
+        continue;
+      }
+
+      return (common_prefix_length, Some(child_node_rc.clone()));
+    }
+
+    Default::default()
   }
 }
 

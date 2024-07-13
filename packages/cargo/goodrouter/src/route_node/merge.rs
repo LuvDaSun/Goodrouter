@@ -1,59 +1,61 @@
 use super::*;
 
-pub fn route_node_merge<'r, K>(
-  parent_node_rc: &RouteNodeRc<'r, K>,
-  child_node_rc: Option<&RouteNodeRc<'r, K>>,
-  anchor: &'r str,
-  has_parameter: bool,
-  route_key: Option<K>,
-  route_parameter_names: Vec<&'r str>,
-  common_prefix_length: usize,
-) -> RouteNodeRc<'r, K> {
-  if let Some(child_node_rc) = child_node_rc {
-    let common_prefix = &anchor[..common_prefix_length];
-    let child_anchor = child_node_rc.0.borrow().anchor;
+impl<'r, K> RouteNodeRc<'r, K> {
+  pub fn merge(
+    &self,
+    child_node_rc: Option<&RouteNodeRc<'r, K>>,
+    anchor: &'r str,
+    has_parameter: bool,
+    route_key: Option<K>,
+    route_parameter_names: Vec<&'r str>,
+    common_prefix_length: usize,
+  ) -> RouteNodeRc<'r, K> {
+    if let Some(child_node_rc) = child_node_rc {
+      let common_prefix = &anchor[..common_prefix_length];
+      let child_anchor = child_node_rc.0.borrow().anchor;
 
-    if child_anchor == anchor {
-      return route_node_merge_join(child_node_rc, route_key, route_parameter_names.clone());
-    } else if child_anchor == common_prefix {
-      return route_node_merge_add_to_child(
-        parent_node_rc,
-        child_node_rc,
-        anchor,
-        has_parameter,
-        route_key,
-        route_parameter_names.clone(),
-        common_prefix_length,
-      );
-    } else if anchor == common_prefix {
-      return route_node_merge_add_to_new(
-        parent_node_rc,
-        child_node_rc,
-        anchor,
-        has_parameter,
-        route_key,
-        route_parameter_names.clone(),
-        common_prefix_length,
-      );
+      if child_anchor == anchor {
+        return route_node_merge_join(child_node_rc, route_key, route_parameter_names.clone());
+      } else if child_anchor == common_prefix {
+        return route_node_merge_add_to_child(
+          self,
+          child_node_rc,
+          anchor,
+          has_parameter,
+          route_key,
+          route_parameter_names.clone(),
+          common_prefix_length,
+        );
+      } else if anchor == common_prefix {
+        return route_node_merge_add_to_new(
+          self,
+          child_node_rc,
+          anchor,
+          has_parameter,
+          route_key,
+          route_parameter_names.clone(),
+          common_prefix_length,
+        );
+      } else {
+        return route_node_merge_intermediate(
+          self,
+          child_node_rc,
+          anchor,
+          has_parameter,
+          route_key,
+          route_parameter_names.clone(),
+          common_prefix_length,
+        );
+      }
     } else {
-      return route_node_merge_intermediate(
-        parent_node_rc,
-        child_node_rc,
+      return route_node_merge_new(
+        self,
         anchor,
         has_parameter,
         route_key,
         route_parameter_names.clone(),
-        common_prefix_length,
       );
     }
-  } else {
-    return route_node_merge_new(
-      parent_node_rc,
-      anchor,
-      has_parameter,
-      route_key,
-      route_parameter_names.clone(),
-    );
   }
 }
 
@@ -182,8 +184,7 @@ fn route_node_merge_add_to_child<'r, K>(
     .borrow()
     .find_similar_child(anchor, has_parameter);
 
-  return route_node_merge(
-    child_node_rc,
+  return child_node_rc.merge(
     child_node_rc_similar.as_ref(),
     anchor,
     has_parameter,
