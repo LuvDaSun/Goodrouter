@@ -34,7 +34,7 @@ impl<'r, K: Eq + Hash + Copy> Router<'r, K> {
     Self {
       root_node_rc: RouteNodeRc::default(),
       leaf_nodes_rc: HashMap::new(),
-      maximum_parameter_value_length: 20,
+      maximum_parameter_value_length: 50,
       parameter_placeholder_re: &TEMPLATE_PLACEHOLDER_REGEX,
       parameter_value_encoder,
       parameter_value_decoder,
