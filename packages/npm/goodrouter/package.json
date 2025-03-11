@@ -1,6 +1,6 @@
 {
   "name": "goodrouter",
-  "version": "2.1.6",
+  "version": "2.1.9",
   "description": "a good router",
   "type": "module",
   "main": "./bundled/main.cjs",
