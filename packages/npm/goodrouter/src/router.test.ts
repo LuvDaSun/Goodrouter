@@ -152,6 +152,26 @@ test("router bug", () => {
   ]);
 });
 
+test("router bug 2", () => {
+  const router = new Router();
+
+  router
+    .insertRoute("a", "/api/v1/Spaces/{spaceId}/HeatmapZones/_/LatestData")
+    .insertRoute("b", "/api/v1/Spaces/{spaceId}/HeatmapZones/{zoneId}/LatestData");
+;
+
+  assert.deepEqual(router.parseRoute("/api/v1/Spaces/7321b6ff-6b8a-4ced-91ca-fe7f7d021f8a/HeatmapZones/_/LatestData"), [
+    "a",
+    { spaceId: "7321b6ff-6b8a-4ced-91ca-fe7f7d021f8a" },
+  ]);
+  
+  assert.deepEqual(router.parseRoute("/api/v1/Spaces/7321b6ff-6b8a-4ced-91ca-fe7f7d021f8a/HeatmapZones/95516e21-a29c-472b-984f-5519664cd25d/LatestData"), [
+    "b",
+    { spaceId: "7321b6ff-6b8a-4ced-91ca-fe7f7d021f8a", zoneId: "95516e21-a29c-472b-984f-5519664cd25d" },
+  ]);
+
+});
+
 test("route-node-json", () => {
   const router = new Router();
   router.insertRoute(1, "x/y");
