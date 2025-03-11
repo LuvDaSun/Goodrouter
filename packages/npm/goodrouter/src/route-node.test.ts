@@ -38,8 +38,8 @@ test("route-node-sort", () => {
   const nodes: RouteNode<string>[] = [
     new RouteNode("aa"),
     new RouteNode("xx"),
-    new RouteNode("aa", true),
     new RouteNode("x"),
+    new RouteNode("aa", true),
   ];
 
   const nodesExpected = [...nodes];
