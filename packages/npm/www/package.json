@@ -7,9 +7,9 @@
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
-    "github-markdown-css": "^5.5.1",
-    "prettier": "^3.2.5",
-    "rollup": "^4.12.1",
-    "typescript": "^5.4.2"
+    "github-markdown-css": "^5.8.1",
+    "prettier": "^3.5.3",
+    "rollup": "^4.35.0",
+    "typescript": "^5.8.2"
   }
 }

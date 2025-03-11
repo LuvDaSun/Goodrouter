@@ -26,9 +26,9 @@ export const defaultRouterOptions = {
   parameterPlaceholderRE: /\{(.*?)\}/gu,
 
   /**
-   * Assume a maximum parameter value length of 20
+   * Assume a maximum parameter value length of 50
    */
-  maximumParameterValueLength: 20,
+  maximumParameterValueLength: 50,
 };
 
 /**

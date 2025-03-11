@@ -9,7 +9,7 @@ public class Router<K> where K : notnull
   private readonly Dictionary<K, RouteNode<K>> leafNodes = new Dictionary<K, RouteNode<K>>();
 
   private Regex parameterPlaceholderRE = new Regex("\\{(.*?)\\}");
-  private int maximumParameterValueLength = 20;
+  private int maximumParameterValueLength = 50;
 
   private Func<string, string> parameterValueEncoder =
       (string decodedValue) => Uri.EscapeDataString(decodedValue);
